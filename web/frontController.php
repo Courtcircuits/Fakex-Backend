@@ -29,7 +29,7 @@ if (isset($_GET['action'])){
     }
 }
 else{
-    $action = 'error';
+    $action = 'default';
     ControllerError::$action();
     $action = 'error';
     $controller = 'error';
