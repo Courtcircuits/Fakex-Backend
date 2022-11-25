@@ -1,4 +1,4 @@
-# backend
+# fakex
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlabinfo.iutmontp.univ-montp2.fr/fakexsociety/backend.git
+git remote add origin https://gitlabinfo.iutmontp.univ-montp2.fr/fakexsociety/fakex.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlabinfo.iutmontp.univ-montp2.fr/fakexsociety/backend/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlabinfo.iutmontp.univ-montp2.fr/fakexsociety/fakex/-/settings/integrations)
 
 ## Collaborate with your team
 

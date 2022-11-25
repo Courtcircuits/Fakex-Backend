@@ -1,0 +1,261 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400&display=swap");
+@font-face {
+  font-family: "FakeReceipt";
+  src: url("../font/FAKERECE.ttf");
+}
+body {
+  background: #F5F2E9;
+  margin: 0px;
+}
+
+#logo {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+#logo p {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 35px;
+  margin: 0px 0px -15px;
+}
+#logo p sup {
+  font-size: 17px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+nav div {
+  display: flex;
+  flex-direction: row;
+}
+nav li {
+  list-style-type: none;
+  transition: 0.5s linear all;
+}
+nav li a {
+  color: black;
+}
+nav li:hover {
+  transition: 0.5s linear all;
+  background: black;
+}
+nav li:hover a, nav li:hover svg {
+  color: #F5F2E9;
+}
+nav ul {
+  padding: 23px 0px;
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  height: 100%;
+}
+nav ul li {
+  margin-right: 20px;
+  margin-left: 20px;
+  font-family: "Space Grotesk", sans-serif;
+}
+nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+nav #icons li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 67px;
+  width: 67px;
+  border-left: 1px solid black;
+}
+nav #icons li a {
+  display: block;
+}
+nav #icons li a svg {
+  height: 35px;
+  width: 35px;
+}
+
+#hero {
+  width: 90%;
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 50px;
+}
+#hero #slider {
+  height: 40vh;
+  margin-right: 50px;
+}
+#hero #slider ul {
+  margin: 0px;
+  padding: 0px;
+}
+#hero #slider ul li {
+  list-style-type: none;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  border-left: 1px solid #7f7f7f;
+}
+#hero #slider ul li p {
+  margin: 0px;
+  color: #7f7f7f;
+  font-family: "FakeReceipt", sans-serif;
+  font-size: 20px;
+}
+#hero #slider ul .activated {
+  border-left: 1px solid black;
+}
+#hero #slider ul .activated p {
+  color: black;
+}
+#hero main {
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+}
+#hero main #description {
+  position: relative;
+  z-index: 2;
+  width: 40%;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#hero main #description h1 {
+  margin: 0px;
+  font-family: "FakeReceipt", serif;
+  font-size: 80px;
+  font-weight: bolder;
+  line-height: 0.9;
+}
+#hero main #description h2, #hero main #description h3 {
+  margin: 0px;
+  font-family: "Be Vietnam Pro", serif;
+  font-weight: normal;
+}
+#hero main #description h2 {
+  font-size: 30px;
+}
+#hero main #description h3 {
+  font-size: 20px;
+}
+#hero main #description p {
+  font-size: 20px;
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: #7f7f7f;
+  font-weight: 300;
+  margin: 0px;
+}
+#hero main #image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  width: 80%;
+  height: 80vh;
+}
+#hero main #image img {
+  width: 50%;
+}
+#hero aside {
+  width: 20%;
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+}
+#hero aside h2 {
+  position: relative;
+  z-index: 2;
+  left: -10px;
+  margin: 0px;
+  padding: 0px;
+  font-family: "FakeReceipt", sans-serif;
+}
+#hero aside img {
+  position: relative;
+  z-index: 1;
+  top: -10px;
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+.btn {
+  display: block;
+  width: fit-content;
+  margin-top: 10px;
+  padding: 10px 50px;
+  color: #F5F2E9;
+  background: #7f7f7f;
+  font-family: "Be Vietnam Pro", sans-serif;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.5s all linear;
+}
+.btn:hover {
+  color: #7f7f7f;
+  background: #F5F2E9;
+  border: 1px #7f7f7f solid;
+  transition: 0.5s all linear;
+}
+
+#feed {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#feed div {
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  border-right: solid 1px black;
+  box-sizing: border-box;
+  width: 25%;
+}
+#feed div img {
+  width: 100%;
+  border-bottom: solid 1px black;
+}
+#feed div .legend {
+  width: 100%;
+  border: 0px;
+  padding: 10px;
+}
+#feed div .legend p {
+  font-family: "Be Vietnam Pro", sans-serif;
+  font-size: 14px;
+  margin: 0px;
+}
+
+footer {
+  background: black;
+  color: #F5F2E9;
+  width: 100%;
+  padding: 10px 0 100px;
+}
+footer p {
+  font-family: "Be Vietnam Pro", sans-serif;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+footer a {
+  color: #F5F2E9;
+}
+footer a:hover {
+  color: #7f7f7f;
+}
+
+/*# sourceMappingURL=style.css.map */
