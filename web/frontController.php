@@ -1,6 +1,6 @@
 <?php
 
-use App\Fakex\controller\ControllerError;
+use App\Fakex\controller\ControllerDefault;
 use App\Fakex\Lib\Psr4AutoloaderClass;
 
 require_once __DIR__ . '/../src/lib/Psr4AutoloaderClass.php';
@@ -21,26 +21,23 @@ if (isset($_GET['action'])){
     if (isset($_GET['controller'])){
         $action = $_GET['action'];
         $controller = $_GET['controller'];
-        $controllerClassName = 'App\Covoiturage\Controller\Controller'.ucfirst($controller);
+        $controllerClassName = 'App\Fakex\controller\Controller'.ucfirst($controller);
         if (!class_exists($controllerClassName)){
             $action = 'error';
-            ControllerError::$action();
+            ControllerDefault::$action();
         }
     }
 }
 else{
     $action = 'default';
-    ControllerError::$action();
-    $action = 'error';
-    $controller = 'error';
-    $controllerClassName = 'App\Covoiturage\Controller\Controller'.ucfirst($controller);
-    echo 'caca';
+    ControllerDefault::$action();
 }
-
+/*
 $controller = $_GET['controller'] ?? 'standard';
-$controllerClassName = "App\Fakex\Controller\Controller".ucfirst($controller);
+$controllerClassName = "App\Fakex\controller\Controller".ucfirst($controller);
 
 if(class_exists($controllerClassName)){
     $action = $_GET['action'] ?? 'readAll';
     $controllerClassName::$action();
 }
+*/
