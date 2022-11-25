@@ -1,6 +1,6 @@
 <?php
 
-use App\Fakex\Controller\ControllerError;
+use App\Fakex\controller\ControllerError;
 use App\Fakex\Lib\Psr4AutoloaderClass;
 
 require_once __DIR__ . '/../src/lib/Psr4AutoloaderClass.php';

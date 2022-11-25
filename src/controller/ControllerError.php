@@ -1,5 +1,5 @@
 <?php
-namespace App\Fakex\Controller;
+namespace App\Fakex\controller;
 
 class ControllerError {
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
@@ -7,7 +7,7 @@ class ControllerError {
         require __DIR__ . "/../view/$cheminVue"; // Charge la vue
     }
     public static function default(){
-        self::afficheVue('Default/index.html');
+        self::afficheVue('index.html');
     }
     public static function error() : void {
         self::afficheVue('Error/generalError.html');
