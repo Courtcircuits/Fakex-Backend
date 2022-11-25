@@ -3,7 +3,7 @@
 use App\Fakex\Controller\ControllerError;
 use App\Fakex\Lib\Psr4AutoloaderClass;
 
-require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
+require_once __DIR__ . '/../src/lib/Psr4AutoloaderClass.php';
 
 // Instanciate the loader
 $loader = new Psr4AutoloaderClass();
