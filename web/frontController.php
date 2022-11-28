@@ -1,6 +1,7 @@
 <?php
 
 use App\Fakex\controller\ControllerDefault;
+use App\Fakex\controller\ControllerModele;
 use App\Fakex\Lib\Psr4AutoloaderClass;
 
 require_once __DIR__ . '/../src/lib/Psr4AutoloaderClass.php';
@@ -26,6 +27,9 @@ if (isset($_GET['action'])){
             $action = 'error';
             ControllerDefault::$action();
         }
+        else {
+            $controllerClassName::$action();
+        }
     }
     else{
         $action = 'error';
@@ -33,7 +37,7 @@ if (isset($_GET['action'])){
     }
 }
 else{
-    $action = 'default';
+    $action = 'accueil';
     ControllerDefault::$action();
 }
 /*
