@@ -27,6 +27,10 @@ if (isset($_GET['action'])){
             ControllerDefault::$action();
         }
     }
+    else{
+        $action = 'error';
+        ControllerDefault::$action();
+    }
 }
 else{
     $action = 'default';

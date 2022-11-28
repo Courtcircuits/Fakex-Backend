@@ -1,4 +1,5 @@
 <?php
+namespace App\Fakex\config;
 class Conf {
 
     static private array $databases = array(
@@ -20,9 +21,21 @@ class Conf {
     );
 
     static public function getLogin() : string {
-        // L'attribut statique $databases s'obtient avec la syntaxe static::$databases
-        // au lieu de $this->databases pour un attribut non statique
-        return static::$databases['login'];
+    // L'attribut statique $databases s'obtient avec la syntaxe static::$databases 
+    // au lieu de $this->databases pour un attribut non statique
+    return static::$databases['login'];
+  }
+
+    static public function getDatabase() : string {
+      return static::$databases['database'];
+    }
+
+    static public function getHostname() : string {
+      return static::$databases['hostname'];
+    }
+
+    static public function getPassword() : string {
+      return static::$databases['password'];
     }
 
 }

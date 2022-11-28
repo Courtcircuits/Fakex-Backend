@@ -1,12 +1,13 @@
 <?php
-
+namespace App\Fakex\model\DataObject;
 class Modele
 {
-    private int $idModele;
-    private string $nom;
-    private int $prix;
-    private string $creator;
-    private int $idImage;
+    public int $idModele;
+    public string $nom;
+    public int $prix;
+    public string $creator;
+    public int $idImage;
+    public Image $image;
 
     /**
      * @return string
@@ -47,18 +48,29 @@ class Modele
     {
         return $this->prix;
     }
+
+    /**
+     * @return Image
+     */
+    public function getImage(): Image{
+        return $this->image;
+    }
+
+
     public function __construct(
         $idModele,
         $nom,
         $prix,
         $creator,
-        $idImage
+        $idImage,
+        $image
     ){
         $this->idModele = $idModele;
         $this->nom = $nom;
         $this->prix = $prix;
         $this->creator = $creator;
         $this->idImage=$idImage;
+        $this->image=$image;
     }
 
 
