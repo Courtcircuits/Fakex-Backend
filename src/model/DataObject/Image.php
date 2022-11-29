@@ -37,9 +37,9 @@ class Image
     }
 
     public function __construct(
-        $nom,
         $idImage,
         $taille,
+        $nom,
         $blob
     ){
         $this->nom = $nom;
