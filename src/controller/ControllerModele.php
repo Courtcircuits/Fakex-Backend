@@ -9,10 +9,10 @@ class ControllerModele {
     public static function readAll(){
         $modeles = (new ModeleRepository())->selectAll();
         self::afficheVue('view.php',['modeles'=>$modeles,"pagetitle"=>"Accueil"
-        ,"cheminVueBody"=>"readAll.php"]);    }
+        ,"cheminVueBody"=>"Accueil/readAll.php"]);    }
     public static function create(){
-        self::afficheVue('view.php',["pagetitle"=>"Ajoutez votre paire"
-        ,"cheminVueBody"=>"create.php"]);
+        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+        ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php"]);
     }
 }
 ?>

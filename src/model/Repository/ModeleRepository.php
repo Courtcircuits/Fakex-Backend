@@ -14,8 +14,7 @@ class ModeleRepository
                 $listResult['nom'],
                 $listResult['prix'],
                 $listResult['creator'],
-                $listResult['imageID'],
-                ImageRepository::select($listResult['imageID'])
+                $listResult['imageBlob']
             );
         }
         return $liste;

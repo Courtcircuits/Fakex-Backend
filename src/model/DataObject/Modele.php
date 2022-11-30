@@ -6,8 +6,7 @@ class Modele
     public string $nom;
     public int $prix;
     public string $creator;
-    public int $idImage;
-    public Image $image;
+    public $imageBlob;
 
     /**
      * @return string
@@ -15,14 +14,6 @@ class Modele
     public function getNom(): string
     {
         return $this->nom;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdImage(): int
-    {
-        return $this->idImage;
     }
 
     /**
@@ -52,8 +43,8 @@ class Modele
     /**
      * @return Image
      */
-    public function getImage(): Image{
-        return $this->image;
+    public function getImageBlob(): string{
+        return $this->imageBlob;
     }
 
 
@@ -62,15 +53,13 @@ class Modele
         $nom,
         $prix,
         $creator,
-        $idImage,
-        $image
+        $imageBlob
     ){
         $this->idModele = $idModele;
         $this->nom = $nom;
         $this->prix = $prix;
         $this->creator = $creator;
-        $this->idImage=$idImage;
-        $this->image=$image;
+        $this->imageBlob = $imageBlob;
     }
 
 

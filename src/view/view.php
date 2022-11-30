@@ -11,15 +11,16 @@
 <body>
 <nav>
     <div>
-        <img src="./img/logo.png" alt="dennis ritchie">
-        <div id="logo">
-            <p>FA<sup>TM</sup></p>
-            <p>KEX</p>
+        <a href="frontController.php?action=readAll&controller=modele"><img src="./img/logo.png" alt="dennis ritchie" ></a>
+        <div id="logo" >
+            <a style="text-decoration : none" style="color : black" href="frontController.php?action=readAll&controller=modele"><p>FA<sup>TM</sup></p>
+            <p>KEX</p></a>
+            
         </div>
     </div>
     <div>
         <ul>
-            <li><a href="frontController.php?action=create&controller=modele">Creators</a></li>
+            <li><a href="frontController.php?action=connexionCreateur&controller=utilisateur">Creators</a></li>
             <li><a href="men">Men</a></li>
             <li><a href="women">Women</a></li>
         </ul>
@@ -139,6 +140,7 @@
 <main>
     <?php
         require __DIR__ . "/{$cheminVueBody}";
+        echo '<p>',$message,'</p>';
     ?>
 </main>
 <footer>
