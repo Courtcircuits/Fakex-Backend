@@ -9,10 +9,10 @@ class ControllerDefault {
     public static function accueil(){
         $modeles = (new ModeleRepository())->selectAll();
         self::afficheVue('view.php',['modeles'=>$modeles,"pagetitle"=>"Accueil"
-        ,"cheminVueBody"=>"readAll.php"]);
+        ,"cheminVueBody"=>"Accueil/readAll.php"]);
     }
     public static function error() : void {
-        self::afficheVue('Error/generalError.html');
+        self::afficheVue('Error/generalError.php');
     }
 }
 ?>

@@ -140,7 +140,6 @@
 <main>
     <?php
         require __DIR__ . "/{$cheminVueBody}";
-        echo '<p>',$message,'</p>';
     ?>
 </main>
 <footer>

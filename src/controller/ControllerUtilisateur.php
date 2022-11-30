@@ -18,12 +18,13 @@ class ControllerUtilisateur{
         $pwd = $_GET['password'];
         $result = (new UtilisateurRepository())->check($login,$pwd);
         if($result){
+            $createur = (new UtilisateurRepository())->getCreateur($login);
             self::afficheVue('view.php',["pagetitle"=>"Ajoutez votre produit"
-            ,"cheminVueBody"=>"Produit/creationProduit.php"]);
+            ,"cheminVueBody"=>"Produit/creationProduit.php","nomCreateur"=> $createur]);
         }
         else{
             self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
-            ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php","message"=>"Login ou mot de passe incorrect"]);
+            ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php","message"=>"Login ou mot de passe incorrect/Vous n'êtes peut être pas créateur"]);
         }
     }
 

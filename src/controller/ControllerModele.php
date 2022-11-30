@@ -10,9 +10,9 @@ class ControllerModele {
         $modeles = (new ModeleRepository())->selectAll();
         self::afficheVue('view.php',['modeles'=>$modeles,"pagetitle"=>"Accueil"
         ,"cheminVueBody"=>"Accueil/readAll.php"]);    }
-    public static function create(){
+    public static function created(){
         self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
-        ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php"]);
+        ,"cheminVueBody"=>"Produit/testAffichageImage.php","imageData"=>$_GET['image']]);
     }
 }
 ?>

@@ -4,29 +4,36 @@ use App\Fakex\model\DataObject\Modele;
 
 class UtilisateurRepository
 {
-    public function check($login,$pwd){
+    public function check($login,$pwd): bool{
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "SELECT * FROM utilisateur WHERE login = :loginTag"; 
+        $requete = "SELECT * FROM utilisateur where login = :loginTag and password = :passwordTag and createur = 1";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'loginTag' => $login
+            ,'passwordTag' => $pwd
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetch();
+        if(!$result) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    public function getCreateur($login): string
+    {
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "SELECT * FROM utilisateur where login = :loginTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'loginTag' => $login
         );
         $pdoStatement->execute($values);
-        $result = $pdoStatement->fetch();
-        $result = password_verify($pwd,$result['password']);
-        var_dump($result);
-        var_dump($result['createur']);
-        if($result['createur']){
-            return false;
-        }
-        else{
-            if(password_verify($pwd,$result['password'])){
-                return true;
-            }
-        }
-        return false;
+        $result = $pdoStatement->fetchAll();
+        return $result[0]['nomCreateur'];
     }
-    
 }
 
 ?>
