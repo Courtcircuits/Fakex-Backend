@@ -1,6 +1,20 @@
+<div id="feed">
+
 <?php
+
     foreach ($modeles as $modele){
-        echo '<p>Nom de la chaussure : '.$modele->getNom().'</p><p>Prix : '.$modele->getPrix().'</p><p>Createur de la paire : '.$modele->getCreator().'<br><img src="data:image/jpg;base64,'.base64_encode($modele->getImageBlob()).'"/>';
+        echo '<div>
+    <img src="data:image/jpg;base64,' . base64_encode($modele->getImageBlob()) . '"/>
+    <div class="legend">
+        <p>' . $modele->getNom() . ' BY ' . $modele->getCreator() . '</p>
+        <p>$' . $modele->getPrix() . ' / '.$modele->getMinSize().' - '.$modele->getMaxSize().'</p>
+</div>
+</div>
+
+
+';
     }
 
 ?>
+</div>
+

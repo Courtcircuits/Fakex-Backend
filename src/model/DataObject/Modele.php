@@ -8,6 +8,8 @@ class Modele
     public string $creator;
     public $imageBlob;
 
+    public string $minSize;
+    public string $maxSize;
     /**
      * @return string
      */
@@ -47,19 +49,37 @@ class Modele
         return $this->imageBlob;
     }
 
+    /**
+     * @return MinSize as String
+     */
+    public function getMinSize(): string{
+        return $this->minSize;
+    }
+
+    /**
+     * @return MaxSize as String
+     */
+    public function getMaxSize(): string{
+        return $this->maxSize;
+    }
+
 
     public function __construct(
         $idModele,
         $nom,
         $prix,
         $creator,
-        $imageBlob
+        $imageBlob,
+        $minSize,
+        $maxSize
     ){
         $this->idModele = $idModele;
         $this->nom = $nom;
         $this->prix = $prix;
         $this->creator = $creator;
         $this->imageBlob = $imageBlob;
+        $this->minSize = $minSize;
+        $this->maxSize = $maxSize;
     }
 
 

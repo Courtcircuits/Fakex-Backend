@@ -14,7 +14,9 @@ class ModeleRepository
                 $listResult['nom'],
                 $listResult['prix'],
                 $listResult['creator'],
-                $listResult['imageBlob']
+                $listResult['imageBlob'],
+                $listResult['minSize'],
+                $listResult['maxSize']
             );
         }
         return $liste;
