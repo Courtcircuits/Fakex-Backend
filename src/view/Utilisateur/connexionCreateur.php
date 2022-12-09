@@ -1,29 +1,28 @@
+<div id="connection">
+    <form method="get" action="frontController.php">
+        <fieldset>
+            <legend>Connexion en tant que créateur</legend>
+            <hr>
 
-        <form method="get" action="frontController.php">
-            <fieldset>
-              <legend>Connexion créateur </legend>
-              <p>
-                <input type='hidden' name='action' value='connectedUtilisateur'>
-                <input type='hidden' name='controller' value='utilisateur'>
+            <input type='hidden' name='action' value='connectedUtilisateur'>
+            <input type='hidden' name='controller' value='utilisateur'>
+            <input type="text" placeholder="Nom d'utilisateur" name="login" id="login_id" required/>
 
 
-                <label for="login_id">Login</label> :
-                <input type="text" placeholder="nike" name="login" id="login_id" required/>
-              </p>
-              <p>
-                <label for="password_id">Mot de passe</label> :
-                <input type="password" name="password" id="password_id" required/>
-              </p>
-              <p>Vous n'avez pas de compte ? <a href="frontController.php?action=inscriptionCreateur&controller=utilisateur">Inscrivez vous</a></p>
-              <p>
-                <input type="submit" value="Envoyer" />
-              </p>
-              
+            <input type="password" name="password" id="password_id" placeholder="Mot de passe" required/>
 
-            </fieldset> 
-          </form>
-        <?php
-            if(!empty($message)){
-                echo "<p>$message</p>";
-            }
-        ?>
+            <p>Vous n'avez pas de compte ? <a
+                        href="frontController.php?action=inscriptionCreateur&controller=utilisateur">Inscrivez vous</a>
+            </p>
+
+            <input type="submit" value="Se connecter"/>
+
+
+        </fieldset>
+    </form>
+    <?php
+    if (!empty($message)) {
+        echo "<p class='flash'>$message</p>";
+    }
+    ?>
+</div>
