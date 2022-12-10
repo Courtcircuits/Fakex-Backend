@@ -1,9 +1,21 @@
 <?php
 namespace App\Fakex\model\Repository;
 use App\Fakex\model\DataObject\Modele;
+use App\Fakex\model\DataObject\Utilisateur;
 
 class UtilisateurRepository
 {
+    public function add(Utilisateur $creator){
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login)");
+        $pdoStatement->execute([
+            "login" => $creator->getLogin(),
+            "password" => $creator->getPassword(),
+            "createur" => $creator->getCreator(),
+            "email" => $creator->getEmail(),
+            "nom" => $creator->getNom(),
+            "prenom" => $creator->getPrenom()
+        ]);
+    }
     public function check($login,$pwd): bool{
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM utilisateur where login = :loginTag and password = :passwordTag and createur = 1";

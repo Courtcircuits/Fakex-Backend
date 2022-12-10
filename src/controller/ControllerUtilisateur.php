@@ -1,5 +1,6 @@
 <?php
 namespace App\Fakex\controller;
+use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\ModeleRepository;
 use App\Fakex\model\Repository\UtilisateurRepository;
 class ControllerUtilisateur{
@@ -31,6 +32,13 @@ class ControllerUtilisateur{
     public static function inscriptionCreateur(){
         self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
         ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php"]);
+    }
+
+    public static function created(){
+        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$_GET['password'],$_GET['email']);
+        var_dump($_GET);
+        (new UtilisateurRepository())->add($user);
+
     }
 }
 ?>

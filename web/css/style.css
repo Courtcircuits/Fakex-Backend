@@ -340,7 +340,7 @@ footer a:hover {
     flex-direction: column;
 }
 
-#connection form fieldset input[type="text"], #connection form fieldset input[type="email"], #connection form fieldset input[type="tel"], #connection form fieldset input[type="password"]{
+#connection form fieldset input[type="text"], #connection form fieldset input[type="email"], #connection form fieldset input[type="tel"], #connection form fieldset input[type="password"], #connection form fieldset input[type="number"]{
     border: 1px solid #7f7f7f;
     border-radius: 1px;
     padding: 10px 10px;

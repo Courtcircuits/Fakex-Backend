@@ -6,7 +6,7 @@
 
 
             <input type='hidden' name='action' value='created'>
-            <input type='hidden' name='controller' value='modele'>
+            <input type='hidden' name='controller' value='utilisateur'>
 
 
             <input type="text" placeholder="Nom d'utilisateur" name="login" id="login_id" required/>

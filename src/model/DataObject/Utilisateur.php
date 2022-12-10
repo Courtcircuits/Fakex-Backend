@@ -57,14 +57,13 @@ class Utilisateur
         return $this->idUtilisateur;
     }
 
-    public function __construct($createur,$nom,$prenom,$login,$password,$email,$idUtilisateur){
+    public function __construct($createur,$nom,$prenom,$login,$password,$email){
         $this->createur = $createur;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->login = $login;
         $this->password = $password;
         $this->email = $email;
-        $this->idUtilisateur = $idUtilisateur;
     }
 }
 ?>
