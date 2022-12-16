@@ -89,11 +89,16 @@ nav #icons li {
     border-left: 1px solid black;
 }
 
-nav #icons li a {
+nav #icons li a,p {
     display: block;
 }
 
 nav #icons li a svg {
+    height: 35px;
+    width: 35px;
+}
+
+nav #icons li p svg {
     height: 35px;
     width: 35px;
 }
@@ -377,5 +382,149 @@ footer a:hover {
     font-family: "Be Vietnam Pro", sans-serif;
     font-size: 1em;
 }
+
+#cart{
+    display: flex;
+    position: fixed;
+    top:0px;
+    flex-direction: column;
+    z-index: 10;
+    width:100%;
+    align-items: flex-end;
+}
+
+#cart-container{
+    background-color: #F5F2E9;
+    width:30%;
+    border-left : 1px solid black;
+    height:100vh;
+
+}
+
+#cart-container .contain{
+    padding-left:20px;
+    padding-right:20px;
+}
+#cart-container img:first-of-type{
+    width:100%;
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+}
+
+#header-cart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#header-cart svg{
+    height:32px;
+    width:32px;
+}
+
+#header-cart div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#header-cart div h2{
+    margin-left: 10px;
+    font-family: 'Space Grotesk', serif;
+}
+
+#legend h3{
+    font-family: "Space Grotesk", sans-serif;
+}
+
+#legend div div p{
+    font-family: "Be Vietnam Pro", sans-serif;
+    margin:0px;
+    margin-bottom: 10px;
+}
+
+#legend div div:nth-of-type(2){
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#legend div span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#summary div p{
+    font-family: "FakeReceipt",sans-serif;
+    font-size: 1.5em;
+    margin:0;
+    margin-bottom: 5px;
+}
+#summary div{
+    margin-bottom:20px;
+}
+
+#summary a{
+    display: block;
+    text-align: center;
+    padding: 5px 60px;
+    margin-bottom: 10px;
+    font-family: "FakeReceipt", sans-serif;
+    background-color: #404040;
+    color:#F5F2E9;
+    text-decoration: none;
+}
+
+#summary a:nth-of-type(2n+1){
+    background-color: #404040;
+    color:#F5F2E9;
+}
+#summary a:nth-of-type(2n){
+    background-color: transparent;
+    color:#404040;
+    border: 1px solid #404040;
+}
+.hide{
+    display: none !important;
+}
+
+nav #icons li form{
+    display: none;
+}
+
+nav #icons li form input{
+    margin-left:20px;
+    background:transparent;
+    border : 0px black solid;
+    border-bottom: 1px rgba(255, 255, 255, 0.77) solid;
+    color : rgba(255, 255, 255, 0.77);
+    font-family:"Space Grotesk",sans-serif ;
+
+}
+
+nav #icons .activated{
+    background: black;
+    color:#F5F2E9 ;
+    width:fit-content;
+
+}
+nav #icons .activated form{
+    display: block;
+}
+
+nav #icons .activated a svg{
+    color:#F5F2E9;
+}
+
+nav #icons .activated a {
+    color:#F5F2E9;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+
 
 /*# sourceMappingURL=style.css.map */

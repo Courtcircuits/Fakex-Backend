@@ -27,7 +27,7 @@
 
     </div>
     <div id="icons">
-        <li><a href="cart">
+        <li><p id="showCart">
             <svg
                     width="100.37152mm"
                     height="97.089256mm"
@@ -66,8 +66,14 @@
                             d="m 13.316681,28.288868 v 2 m 6,-2 v 2 m -9,-6 4,-6 m 8,6 -4,-6"
                             id="path6143"
                             style="fill:#c9c9c9;fill-opacity:1;stroke-width:0.664522;stroke-dasharray:none"/></g></svg>
-        </a></li>
-        <li><a href="search">
+        </p></li>
+        <li id="searchbar" class="activated">
+            <form>
+                <input type="text" placeholder="Rechercher...">
+
+            </form>
+
+            <a id="trigger">
             <svg
                     width="106.46204mm"
                     height="98.880577mm"
@@ -142,11 +148,15 @@
         require __DIR__ . "/{$cheminVueBody}";
     ?>
 </main>
+<?php
+    require __DIR__ . "/cart.php";
+?>
 <footer>
     <p>
         Site créé par Alfonso Jimenez, Tristan Radulescu et Damien Mathieu<br>
         Fake X est une contrefaçon de <a href="https://stockx.com">Stock X</a>.
     </p>
 </footer>
+<script src="./js/script.js"></script>
 </body>
 </html> 
