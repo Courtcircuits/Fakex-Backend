@@ -1,5 +1,5 @@
 <div id="connection">
-    <form method="get" action="frontController.php">
+    <form method="POST" action="frontController.php">
         <fieldset>
             <legend>Inscription créateur</legend>
             <hr>

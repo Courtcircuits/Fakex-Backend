@@ -7,6 +7,7 @@ class Modele
     public int $prix;
     public string $creator;
     public $imageBlob;
+    public string $genre;
 
     public string $minSize;
     public string $maxSize;
@@ -71,7 +72,8 @@ class Modele
         $creator,
         $imageBlob,
         $minSize,
-        $maxSize
+        $maxSize,
+        $genre
     ){
         $this->idModele = $idModele;
         $this->nom = $nom;
@@ -80,6 +82,7 @@ class Modele
         $this->imageBlob = $imageBlob;
         $this->minSize = $minSize;
         $this->maxSize = $maxSize;
+        $this->genre = $genre;
     }
 
 

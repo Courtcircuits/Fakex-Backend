@@ -21,8 +21,8 @@
     <div>
         <ul>
             <li><a href="frontController.php?action=connexionCreateur&controller=utilisateur">Creators</a></li>
-            <li><a href="men">Men</a></li>
-            <li><a href="women">Women</a></li>
+            <li><a href="frontController.php?action=readMen&controller=modele">Men</a></li>
+            <li><a href="frontController.php?action=readWomen&controller=modele">Women</a></li>
         </ul>
 
     </div>
