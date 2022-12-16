@@ -15,6 +15,12 @@
                             <input type=\"text\" name=\"createur\" id=\"createur_id\" value=\"{$nomCreateur}\" readonly/>
                           ";
             ?>
+                 <label for="genre">Genre de votre paire :</label>
+                <select id="genre" name="genre" required>
+                    <option value="H" >Homme</option>
+                    <option value="F" >Femme</option>
+                    <option value="H/F">Unisexe</option>
+                </select>
                 <label for="image_id">Image de votre paire</label>
                 <input type="file" name="image" id="image_id" accept="image/*" required/>
 

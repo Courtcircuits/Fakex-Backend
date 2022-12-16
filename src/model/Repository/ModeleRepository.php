@@ -61,18 +61,18 @@ class ModeleRepository
         return $liste;
     }
 
-    public function createShoe( $nom, $prix, $creator, $imageBlob, $minSize, $maxSize, $genre){
+    public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "INSERT INTO Modele (nom,prix,creator,imageBlob,minSize,maxSize,genre) VALUES (:nomTag,:prixTag,:creatorTag,:imageBlobTag,:minSizeTag,:maxSizeTag,:genreTag)";
+        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageBlob, minSize,maxSize, genre) VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageBlobTag, :minSizeTag, :maxSizeTag, :genreTag)";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
-            'nomTag' => $_POST['nom'],
-            'prixTag' => $_POST['prix'],
-            'creatorTag' => $_POST['creator'],
-            'imageBlobTag' => $_POST['imageBlob'],
-            'minSizeTag' => $_POST['minSize'],
-            'maxSizeTag' => $_POST['maxSize'],
-            'genreTag' => $_POST['genre']
+            'nomTag' => $shoe->getNom(),
+            'prixTag' => $shoe->getPrix(),
+            'creatorTag' => $shoe->getCreator(),
+            'imageBlobTag' => $shoe->getImageBlob(),
+            'minSizeTag' => $shoe->getMinSize(),
+            'maxSizeTag' => $shoe->getMaxSize(),
+            'genreTag' => $shoe->getGenre()
         );
         $pdoStatement->execute($values);
     }
