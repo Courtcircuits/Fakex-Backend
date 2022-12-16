@@ -2,7 +2,7 @@
 namespace App\Fakex\model\DataObject;
 class Modele
 {
-    public int $idModele;
+    public int|null $idModele;
     public string $nom;
     public int $prix;
     public string $creator;
@@ -62,6 +62,10 @@ class Modele
      */
     public function getMaxSize(): string{
         return $this->maxSize;
+    }
+
+    public function getGenre(): string{
+        return $this->genre;
     }
 
 

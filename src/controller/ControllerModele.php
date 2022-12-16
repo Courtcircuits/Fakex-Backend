@@ -1,6 +1,7 @@
 <?php
 namespace App\Fakex\controller;
 use App\Fakex\model\Repository\ModeleRepository;
+use App\Fakex\model\DataObject\Modele;
 class ControllerModele {
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
@@ -21,17 +22,10 @@ class ControllerModele {
         ,"cheminVueBody"=>"Accueil/readAll.php"]);
     }
     public static function created(){
-        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
-        ,"cheminVueBody"=>"Produit/testAffichageImage.php","imageData"=>$_GET['image']]);
-    }
-
-    public static function recommand(){
-        $result = (new ModeleRepository())->recommandShoe($_GET['pattern']);
-
-        $json = json_encode($result);
-
-
-
-    }
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+        $modele = new Modele(null,$_POST['paire'],$_POST['prix'],$_POST['createur'],$image,39,45,$_POST['genre']);
+        (new ModeleRepository())->createShoe($modele);
+        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous","cheminVueBody"=>"Produit/testAffichageImage.php",]);
+    }    
 }
 ?>
