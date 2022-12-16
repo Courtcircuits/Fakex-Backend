@@ -523,8 +523,41 @@ nav #icons .activated a {
     padding-left: 10px;
     padding-right: 10px;
 }
+nav #icons #suggestions{
+    display: none;
+}
 
+nav #icons #searchbar.activated{
+    justify-content: left;
+}
 
+nav #icons .activated #suggestions{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 70px;
+    width: fit-content;
+    background: black;
+    color: #F5F2E9;
+
+}
+
+nav #icons .activated #suggestions ol{
+    width: auto;
+    margin: 0px;
+    padding:0px;
+}
+nav #icons .activated #suggestions li{
+    width: auto;
+    margin: 0px;
+    padding-top:0px;
+    padding-bottom:0px;
+    padding-left:20px;
+    padding-right:20px;
+    font-family: "Be Vietnam Pro", sans-serif;
+    border-bottom: #F5F2E9 1px solid;
+    justify-content: left;
+}
 
 
 /*# sourceMappingURL=style.css.map */

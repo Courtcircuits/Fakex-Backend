@@ -24,5 +24,14 @@ class ControllerModele {
         self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
         ,"cheminVueBody"=>"Produit/testAffichageImage.php","imageData"=>$_GET['image']]);
     }
+
+    public static function recommand(){
+        $result = (new ModeleRepository())->recommandShoe($_GET['pattern']);
+
+        $json = json_encode($result);
+
+
+
+    }
 }
 ?>

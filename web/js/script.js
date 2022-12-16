@@ -18,6 +18,7 @@ document.getElementById("closeCart").addEventListener("mousedown",()=>{
 
 const sizes = document.getElementsByClassName("size-btn");
 
+
 function parse(url, add){
     console.log(url);
     let toreturn = "";

@@ -76,4 +76,23 @@ class ModeleRepository
         );
         $pdoStatement->execute($values);
     }
+
+    public function recommandShoe($pattern):array{
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pattern = '%'.$pattern.'%';
+        $sql = "SELECT * FROM Modele WHERE nom LIKE :pattern";
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $values = [
+            'pattern' => $pattern
+        ];
+        $pdoStatement->execute($values);
+        $resultset = $pdoStatement->fetchAll();
+        $toreturn = [];
+        var_dump($resultset);
+        foreach ($resultset as $row){
+            $toreturn[] = $row['nom'];
+            echo $row['nom'];
+        }
+        return $toreturn;
+    }
 }
