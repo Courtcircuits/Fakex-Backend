@@ -22,10 +22,10 @@ class ControllerModele {
         ,"cheminVueBody"=>"Accueil/readAll.php"]);
     }
     public static function created(){
-        $modele = new Modele(null,$_GET['paire'],$_GET['prix'],$_GET['createur'],$_GET['image'],39,45,$_GET['genre']);
+        $image = file_get_contents($_FILES['image']['tmp_name']);
+        $modele = new Modele(null,$_POST['paire'],$_POST['prix'],$_POST['createur'],$image,39,45,$_POST['genre']);
         (new ModeleRepository())->createShoe($modele);
-        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
-        ,"cheminVueBody"=>"Produit/testAffichageImage.php",]);
-    }
+        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous","cheminVueBody"=>"Produit/testAffichageImage.php",]);
+    }    
 }
 ?>
