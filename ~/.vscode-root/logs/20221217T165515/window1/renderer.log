@@ -1,4 +1,0 @@
-2022-12-17 16:55:16.617 [info] Initial editor state {"filesToOpenOrCreate":[{"fileUri":{"$mid":1,"path":"/opt/lampp/htdocs/devWeb/backend/README.md","scheme":"file"},"type":1,"exists":true,"options":{}}],"filesToDiff":[],"filesToMerge":[]}
-2022-12-17 16:55:17.605 [info] Started initializing default profile extensions in extensions installation folder. file:///root/.vscode/extensions
-2022-12-17 16:55:17.705 [info] Completed initializing default profile extensions in extensions installation folder. file:///root/.vscode/extensions
-2022-12-17 16:55:20.911 [info] [perf] Render performance baseline is 176ms

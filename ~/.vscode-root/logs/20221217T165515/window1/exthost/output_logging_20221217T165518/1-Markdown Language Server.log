@@ -1,5 +1,0 @@
-[Trace 15:55:19.075] VsCodeClientWorkspace: TextDocument.onDidOpen: file:///opt/lampp/htdocs/devWeb/backend/README.md
-[Trace 15:55:19.077] VsCodeClientWorkspace: TextDocument.onDidChanceContent: file:///opt/lampp/htdocs/devWeb/backend/README.md
-[Trace 15:55:19.079] Server: connection.languages.diagnostics.on: file:///opt/lampp/htdocs/devWeb/backend/README.md
-[Trace 15:55:19.082] Server: connection.languages.diagnostics.on: file:///opt/lampp/htdocs/devWeb/backend/README.md
-[Trace 15:55:19.284] Server: connection.languages.diagnostics.on: file:///opt/lampp/htdocs/devWeb/backend/README.md
