@@ -1,8 +1,8 @@
 <nav>
     <div>
-        <a href="frontController.php?action=readAll&controller=modele"><img src="./img/logo.png" alt="dennis ritchie" ></a>
+        <a href="frontController.php?action=readAll&controller=modele" style="color: inherit; text-decoration: none;"><img src="./img/logo.png" alt="dennis ritchie" ></a>
         <div id="logo" >
-            <a style="text-decoration : none" style="color : black" href="frontController.php?action=readAll&controller=modele"><p>FA<sup>TM</sup></p>
+            <a href="frontController.php?action=readAll&controller=modele" style="color: inherit; text-decoration: none;"><p>FA<sup>TM</sup></p>
                 <p>KEX</p></a>
 
         </div>

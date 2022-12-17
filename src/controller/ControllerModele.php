@@ -27,5 +27,12 @@ class ControllerModele {
         (new ModeleRepository())->createShoe($modele);
         self::afficheVue('view.php',["pagetitle"=>"Connectez-vous","cheminVueBody"=>"Produit/testAffichageImage.php",]);
     }    
+
+    public static function readProduct(){
+        $id = $_GET['id'];
+        $modele = (new ModeleRepository())->selectOne($id);
+        self::afficheVue('view.php',['modele'=>$modele,"pagetitle"=>$id
+        ,"cheminVueBody"=>"Accueil/readSingleProduct.php"]);
+    }
 }
 ?>

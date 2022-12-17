@@ -61,6 +61,28 @@ class ModeleRepository
         return $liste;
     }
 
+    public function selectOne(String $chaussure):Modele{
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "SELECT * FROM Modele WHERE nom = :nomTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'nomTag' => $chaussure
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetch();
+        $modele = new Modele(
+            $result['idModele'],
+            $result['nom'],
+            $result['prix'],
+            $result['creator'],
+            $result['imageBlob'],
+            $result['minSize'],
+            $result['maxSize'],
+            $result['genre']
+        );
+        return $modele;
+    }
+
     public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageBlob, minSize,maxSize, genre) VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageBlobTag, :minSizeTag, :maxSizeTag, :genreTag)";
