@@ -19,6 +19,9 @@ class ControllerUtilisateur{
         $pwd = $_GET['password'];
         $result = (new UtilisateurRepository())->check($login,$pwd);
         if($result){
+            session_start();
+            $_SESSION['login'] = $login;
+            $_SESSION['logged_in']= true;
             $createur = (new UtilisateurRepository())->getCreateur($login);
             self::afficheVue('view.php',["pagetitle"=>"Ajoutez votre produit"
             ,"cheminVueBody"=>"Produit/creationProduit.php","nomCreateur"=> $createur]);
@@ -39,6 +42,14 @@ class ControllerUtilisateur{
         var_dump($_GET);
         (new UtilisateurRepository())->add($user);
 
+    }
+
+    public static function deconnexion(){
+        session_start();
+        session_destroy();
+        session_unset();
+        ControllerModele::readAll();
+       
     }
 }
 ?>

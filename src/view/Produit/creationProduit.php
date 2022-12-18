@@ -7,14 +7,14 @@
                 <input type="text" placeholder="Nom de votre paire" name="paire" id="paire_id" required/>
                 <input type="number" name="prix" id="prix_id"  placeholder="Prix de votre paire" required/>
             <?php
-            echo "
-                            <label for=\"createur_id\">Votre nom de createur :</label> 
-                            <input type=\"text\" name=\"createur\" id=\"createur_id\" value=\"{$nomCreateur}\" readonly/>
-                          ";
+                echo "
+                                <label for=\"createur_id\">Votre nom de createur :</label> 
+                                <input type=\"text\" name=\"createur\" id=\"createur_id\" value=\"{$nomCreateur}\" readonly/>
+                            ";
             ?>
                  <label for="genre">Genre de votre paire :</label>
                 <select id="genre" name="genre" required>
-                    <option value="H" >Homme</option>
+                <option disabled selected value> -- Choissisez un genre -- </option>                    <option value="H" >Homme</option>
                     <option value="F" >Femme</option>
                     <option value="H/F">Unisexe</option>
                 </select>

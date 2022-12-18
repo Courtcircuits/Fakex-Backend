@@ -12,6 +12,17 @@
             <li><a href="frontController.php?action=connexionCreateur&controller=utilisateur">Creators</a></li>
             <li><a href="frontController.php?action=readMen&controller=modele">Men</a></li>
             <li><a href="frontController.php?action=readWomen&controller=modele">Women</a></li>
+            <?php
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+                // L'utilisateur est connecté
+                echo '<a>Logged in as ' . $_SESSION['login'] . '</a>';
+                echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li>';
+            } else {
+                // L'utilisateur n'est pas connecté
+                echo '<li><a href="frontController.php?action=connexion&controller=utilisateur">Log in</a></li>';
+            }
+            ?>
+
         </ul>
 
     </div>
@@ -56,7 +67,7 @@
                             id="path6143"
                             style="fill:#c9c9c9;fill-opacity:1;stroke-width:0.664522;stroke-dasharray:none"/></g></svg>
             </p></li>
-        <li id="searchbar" class="activated">
+        <li id="searchbar" class="desactivated">
             <form>
                 <input type="text" placeholder="Rechercher...">
             </form>

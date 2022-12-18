@@ -10,6 +10,10 @@
 </head>
 <body>
 <?php
+    
+    session_start();
+       
+      
     require __DIR__ . "/navbar.php";
 ?>
 <main>
