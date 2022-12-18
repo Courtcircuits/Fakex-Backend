@@ -4,7 +4,7 @@
             <legend>Connexion en tant que créateur</legend>
             <hr>
 
-            <input type='hidden' name='action' value='connectedUtilisateurCreateur'>
+            <input type='hidden' name='action' value='connectedUtilisateurLambda'>
             <input type='hidden' name='controller' value='utilisateur'>
             <input type="text" placeholder="Nom d'utilisateur" name="login" id="login_id" required/>
 

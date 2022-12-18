@@ -14,10 +14,15 @@ class ControllerUtilisateur{
         ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php"]);
     }
 
-    public static function connectedUtilisateur(){
+    public static function connexionUtilisateur(){
+        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+        ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php"]);
+    }
+
+    public static function connectedUtilisateurCreateur(){
         $login = $_GET['login'];
         $pwd = $_GET['password'];
-        $result = (new UtilisateurRepository())->check($login,$pwd);
+        $result = (new UtilisateurRepository())->checkCreateur($login,$pwd);
         if($result){
             session_start();
             $_SESSION['login'] = $login;
@@ -27,8 +32,24 @@ class ControllerUtilisateur{
             ,"cheminVueBody"=>"Produit/creationProduit.php","nomCreateur"=> $createur]);
         }
         else{
-            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous [Createur]"
             ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php","message"=>"Login ou mot de passe incorrect/Vous n'êtes peut être pas créateur"]);
+        }
+    }
+
+    public static function connectedUtilisateurLambda(){
+        $login = $_GET['login'];
+        $pwd = $_GET['password'];
+        $result = (new UtilisateurRepository())->checkGlobal($login,$pwd);
+        if($result){
+            session_start();
+            $_SESSION['login'] = $login;
+            $_SESSION['logged_in']= true;
+            ControllerModele::readAll();
+        }
+        else{
+            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+            ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php","message"=>"Login ou mot de passe incorrect"]);
         }
     }
 

@@ -2,6 +2,9 @@
 namespace App\Fakex\controller;
 use App\Fakex\model\Repository\ModeleRepository;
 use App\Fakex\model\DataObject\Modele;
+use App\Fakex\model\DataObject\Utilisateur;
+use App\Fakex\model\Repository\UtilisateurRepository;
+
 class ControllerModele {
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
@@ -33,6 +36,12 @@ class ControllerModele {
         $modele = (new ModeleRepository())->selectOne($id);
         self::afficheVue('view.php',['modele'=>$modele,"pagetitle"=>$id
         ,"cheminVueBody"=>"Accueil/readSingleProduct.php"]);
+    }
+
+    public static function addProduitPanier(){
+        $idModele = $_GET['idmodele'];
+        (new UtilisateurRepository())->ajoutProd($idModele);
+        ControllerModele::readAll();
     }
 }
 ?>

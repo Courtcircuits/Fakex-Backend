@@ -19,7 +19,7 @@
                 echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li>';
             } else {
                 // L'utilisateur n'est pas connecté
-                echo '<li><a href="frontController.php?action=connexion&controller=utilisateur">Log in</a></li>';
+                echo '<li><a href="frontController.php?action=connexionUtilisateur&controller=utilisateur">Log in</a></li>';
             }
             ?>
 
