@@ -59,7 +59,7 @@ function getRecommandations(pattern) {
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < data.length; i++) {
-                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\"\">" + data[i] + "</a></li>";
+                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\""+ url + "?action=readProduct&controller=modele&id="+data[i] +"\">" + data[i] + "</a></li>";
             }
         });
 }
