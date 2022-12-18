@@ -102,7 +102,7 @@ class ModeleRepository
     public function recommandShoe($pattern):array{
         $pdoStatement = DatabaseConnection::getPdo();
         $pattern = '%'.$pattern.'%';
-        $sql = "SELECT * FROM Modele WHERE nom LIKE :pattern";
+        $sql = "SELECT nom FROM Modele WHERE nom LIKE :pattern";
         $pdoStatement = $pdoStatement->prepare($sql);
         $values = [
             'pattern' => $pattern
@@ -110,11 +110,22 @@ class ModeleRepository
         $pdoStatement->execute($values);
         $resultset = $pdoStatement->fetchAll();
         $toreturn = [];
-        var_dump($resultset);
         foreach ($resultset as $row){
             $toreturn[] = $row['nom'];
-            echo $row['nom'];
         }
         return $toreturn;
+    }
+
+    public function add(Modele $modele):void{
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO Modele (nom, prix, creator, imageBlob, minSize, maxSize) VALUES (:nom, :prix, :creator, :imageBlob, :minSize, :maxSize)");
+        $pdoStatement->execute([
+            'nom' => $modele->getNom(),
+            'prix' => $modele->getPrix(),
+            'creator' => $modele->getCreator(),
+            'imageBlob' => $modele->getImageBlob(),
+            'minSize' => $modele->getMinSize(),
+            'maxSize' => $modele->getMaxSize()
+        ]);
+
     }
 }

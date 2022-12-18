@@ -69,19 +69,11 @@
             </p></li>
         <li id="searchbar" class="desactivated">
             <form>
-                <input type="text" placeholder="Rechercher...">
+                <input type="text" placeholder="Rechercher..." id="searchbar-input">
             </form>
             <div id="suggestions">
                 <ol>
-                    <li>
-                        <a href="">Proposition 1 un peu long mais tkt frere</a>
-                    </li>
-                    <li>
-                        <a href="">Proposition 1 un peu long mais tkt frere</a>
-                    </li>
-                    <li>
-                        <a href="">Proposition 3</a>
-                    </li>
+
                 </ol>
             </div>
 

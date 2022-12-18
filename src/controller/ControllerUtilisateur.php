@@ -39,7 +39,6 @@ class ControllerUtilisateur{
 
     public static function created(){
         $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$_GET['password'],$_GET['email']);
-        var_dump($_GET);
         (new UtilisateurRepository())->add($user);
 
     }

@@ -34,5 +34,12 @@ class ControllerModele {
         self::afficheVue('view.php',['modele'=>$modele,"pagetitle"=>$id
         ,"cheminVueBody"=>"Accueil/readSingleProduct.php"]);
     }
+
+    public static function recommand(){
+        $recommandations = (new ModeleRepository())->recommandShoe($_GET['search']);
+        //print as a json array content of $recommandations
+        echo json_encode($recommandations);
+        header("Content-Type: application/json");
+    }
 }
 ?>
