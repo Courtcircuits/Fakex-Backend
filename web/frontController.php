@@ -36,10 +36,12 @@ if (isset($_GET['action'])){
         ControllerDefault::$action();
     }
 }
+
 else{
     $action = 'accueil';
     ControllerDefault::$action();
 }
+
 /*
 $controller = $_GET['controller'] ?? 'standard';
 $controllerClassName = "App\Fakex\controller\Controller".ucfirst($controller);

@@ -1,5 +1,14 @@
 <?php
 namespace App\Fakex\model\DataObject;
+/**
+ * Cette classe simule un object modele
+ *
+ * <p>
+ * L'objet modéle est crée avec l'information récoltée de notre Base De Données
+ * C'est ainsi qu'on connecte notre BD au programme PHP
+ * </p>
+ */
+
 class Modele
 {
     public int|null $idModele;

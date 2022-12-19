@@ -2,6 +2,22 @@
 namespace App\Fakex\model\Repository;
 use App\Fakex\model\DataObject\Modele;
 use App\Fakex\model\Repository\ImageRepository;
+
+/**
+ * Cette classe a pour objectif de gerer les requetes d'une base de Données spécifique :
+ * <p>
+ * Modele
+ * </p>
+ *
+ * Elle forme partie d'une architecture de programmation en couches
+ * <ul>
+ *  <li>Elle gère les selections </li>
+ * <li> Les creations des modèles</li>
+ * <li> L'elimination des modèles</li>
+ * <li> et les altérations des modèles</li>
+ *
+ * </ul>
+ */
 class ModeleRepository
 {
     public function selectAll(): array{
@@ -61,12 +77,12 @@ class ModeleRepository
         return $liste;
     }
 
-    public function selectOne(String $chaussure):Modele{
+    public function selectOne(int $chaussureID):Modele{
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM Modele WHERE nom = :nomTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
-            'nomTag' => $chaussure
+            'nomTag' => $chaussureID
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetch();
@@ -85,7 +101,8 @@ class ModeleRepository
 
     public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageBlob, minSize,maxSize, genre) VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageBlobTag, :minSizeTag, :maxSizeTag, :genreTag)";
+        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageBlob, minSize,maxSize, genre) 
+        VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageBlobTag, :minSizeTag, :maxSizeTag, :genreTag)";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'nomTag' => $shoe->getNom(),
@@ -99,6 +116,14 @@ class ModeleRepository
         $pdoStatement->execute($values);
     }
 
+    /**
+     * Cette méthode cherche toutes les chaussures qui ont un même pattern
+     * Autrement dit, on cherche toutes les mêmes chaussures dans la BD?
+     *
+     * (A spécifier ) 🤞
+     * @param $pattern
+     * @return array
+     */
     public function recommandShoe($pattern):array{
         $pdoStatement = DatabaseConnection::getPdo();
         $pattern = '%'.$pattern.'%';

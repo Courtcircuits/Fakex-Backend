@@ -5,6 +5,14 @@ use App\Fakex\model\DataObject\Modele;
 use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\UtilisateurRepository;
 
+/**
+ * Cette méthode est la classe intermédiaire entre les repository's et les vues
+ *
+ * <p>
+ *  Elle connecte la classe {@link ModeleRepository} avec les vues qui affichent toute l'information récolté
+ *
+ * </p>
+ */
 class ControllerModele {
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
@@ -25,19 +33,17 @@ class ControllerModele {
         ,"cheminVueBody"=>"Accueil/readAll.php"]);
     }
     public static function created(){
-        $image = file_get_contents($_FILES['image']['tmp_name']);
-        $modele = new Modele(null,$_POST['paire'],$_POST['prix'],$_POST['createur'],$image,39,45,$_POST['genre']);
+        $modele = new Modele(null,$_GET['paire'],$_GET['prix'],$_GET['createur'],$_GET['image'],39,45,$_GET['genre']);
         (new ModeleRepository())->createShoe($modele);
-        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous","cheminVueBody"=>"Produit/testAffichageImage.php",]);
-    }    
-
-    public static function readProduct(){
-        $id = $_GET['id'];
-        $modele = (new ModeleRepository())->selectOne($id);
-        self::afficheVue('view.php',['modele'=>$modele,"pagetitle"=>$id
-        ,"cheminVueBody"=>"Accueil/readSingleProduct.php"]);
+        self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+        ,"cheminVueBody"=>"Produit/testAffichageImage.php",]);
     }
-
+    public static function readSingleProduct(){
+        $modele = (new ModeleRepository())->selectOne($_GET['id']);
+        self::afficheVue('view.php',['modele' => $modele,
+            "pageTitle" => "Affichage Produit Unique",
+            "cheminVueBody" => "Accueil/read"]);
+    }
     public static function addProduitPanier(){
         $idModele = $_GET['idmodele'];
         (new UtilisateurRepository())->ajoutProd($idModele);
@@ -45,3 +51,5 @@ class ControllerModele {
     }
 }
 ?>
+
+
