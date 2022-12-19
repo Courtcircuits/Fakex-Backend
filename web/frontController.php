@@ -35,13 +35,13 @@ if (isset($_GET['action'])){
         $action = 'error';
         ControllerDefault::$action();
     }
-}else{
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
+}
+
+else{
     $action = 'accueil';
     ControllerDefault::$action();
 }
+
 /*
 $controller = $_GET['controller'] ?? 'standard';
 $controllerClassName = "App\Fakex\controller\Controller".ucfirst($controller);
