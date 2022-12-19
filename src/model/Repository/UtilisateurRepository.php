@@ -102,53 +102,69 @@ class UtilisateurRepository
     }
 
     public static function getProdPanier():array{
-        session_start();
-        $pdoStatement = DatabaseConnection::getPdo();   
-        $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
-        $pdoStatement = $pdoStatement->prepare($requete);
-        $values = array(
-            'loginTag' => $_SESSION['login']
-        );
-        $pdoStatement->execute($values);
-        $result = $pdoStatement->fetchAll();
-        $requete = "Select idPanier from Panier where idUtilisateur = :idUtilisateur";
-        $pdoStatement = DatabaseConnection::getPdo();
-        $pdoStatement = $pdoStatement->prepare($requete);
-        $values = array(
-            'idUtilisateur' => $result[0]['idUtilisateur']
-        );
-        $pdoStatement->execute($values);
-        $result = $pdoStatement->fetchAll();
-        $requete = "Select idModele from LigneCommande where idPanier = :idPanier";
-        $pdoStatement = DatabaseConnection::getPdo();
-        $pdoStatement = $pdoStatement->prepare($requete);
-        $values = array(
-            'idPanier' => $result[0]['idPanier']
-        );
-        $pdoStatement->execute($values);
-        $liste = array();
-        foreach ($pdoStatement as $listResult) {
-            $requete = "Select * from Modele where idModele = :idModele";
+        if(isset($_SESSION['login'])){
             $pdoStatement = DatabaseConnection::getPdo();
+            $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
             $pdoStatement = $pdoStatement->prepare($requete);
+
             $values = array(
-                'idModele' => $listResult['idModele']
+                'loginTag' => $_SESSION['login']
             );
             $pdoStatement->execute($values);
             $result = $pdoStatement->fetchAll();
-            $liste[] = new Modele(
-                $result[0]['idModele'],
-                $result[0]['nom'],
-                $result[0]['prix'],
-                $result[0]['creator'],
-                $result[0]['imageBlob'],
-                $result[0]['minSize'],
-                $result[0]['maxSize'],
-                $result[0]['genre']
+            $requete = "Select idPanier from Panier where idUtilisateur = :idUtilisateur";
+            $pdoStatement = DatabaseConnection::getPdo();
+            $pdoStatement = $pdoStatement->prepare($requete);
+            $values = array(
+                'idUtilisateur' => $result[0]['idUtilisateur']
             );
+            $pdoStatement->execute($values);
+            $result = $pdoStatement->fetchAll();
+            $requete = "Select idModele from LigneCommande where idPanier = :idPanier";
+            $pdoStatement = DatabaseConnection::getPdo();
+            $pdoStatement = $pdoStatement->prepare($requete);
+            $values = array(
+                'idPanier' => $result[0]['idPanier']
+            );
+            $pdoStatement->execute($values);
+            $liste = array();
+            foreach ($pdoStatement as $listResult) {
+                $requete = "Select * from Modele where idModele = :idModele";
+                $pdoStatement = DatabaseConnection::getPdo();
+                $pdoStatement = $pdoStatement->prepare($requete);
+                $values = array(
+                    'idModele' => $listResult['idModele']
+                );
+                $pdoStatement->execute($values);
+                $result = $pdoStatement->fetchAll();
+                $liste[] = new Modele(
+                    $result[0]['idModele'],
+                    $result[0]['nom'],
+                    $result[0]['prix'],
+                    $result[0]['creator'],
+                    $result[0]['imageBlob'],
+                    $result[0]['minSize'],
+                    $result[0]['maxSize'],
+                    $result[0]['genre']
+                );
+            }
+            return $liste;
         }
-        return $liste;
+        return [];
+
         
+    }
+
+    public static function getSumPanier():int{
+        $sql = "SELECT SUM(m.prix) as total FROM Modele m JOIN LigneCommande l ON l.idModele = m.idModele JOIN Panier p ON p.idPanier = l.idPanier JOIN utilisateur u on p.idUtilisateur = u.idUtilisateur WHERE u.login  = :login";
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $values = array(
+            'login' => $_SESSION['login']
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetchAll();
+        return $result[0]['total'];
     }
 }
 

@@ -394,11 +394,15 @@ footer a:hover {
 }
 
 #cart-container{
+    overflow-y: scroll;
     background-color: #F5F2E9;
     width:30%;
     border-left : 1px solid black;
     height:100vh;
 
+}
+#cart-container #content-cart{
+    border-top:1px solid black;
 }
 
 #cart-container .contain{
@@ -411,16 +415,32 @@ footer a:hover {
     border-bottom:1px solid black;
 }
 
+#empty-cart{
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+
+#empty-cart a{
+    color: #7f7f7f;
+}
+
 #header-cart{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: fit-content;
+    position: fixed;
+    background: rgb(245, 242, 233);
+    width: inherit;
+    border-bottom: 1px solid black;
 }
 #header-cart svg{
     height:32px;
     width:32px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
+
 
 #header-cart div{
     display: flex;
@@ -429,7 +449,7 @@ footer a:hover {
 }
 
 #header-cart div h2{
-    margin-left: 10px;
+
     font-family: 'Space Grotesk', serif;
 }
 
