@@ -43,7 +43,7 @@ class ControllerModele {
         $modele = (new ModeleRepository())->selectOne($_GET['id']);
         self::afficheVue('view.php',['modele' => $modele,
             "pageTitle" => "Affichage Produit Unique",
-            "cheminVueBody" => "Accueil/read"]);
+            "cheminVueBody" => "Accueil/readSingleProduct.php"]);
     }
     public static function addProduitPanier(){
         $idModele = $_GET['idmodele'];

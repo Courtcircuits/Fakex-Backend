@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +10,18 @@
 </head>
 <body>
 <?php
-require 'navbar.php';
+
+    session_start();     
+    require __DIR__ . "/navbar.php";
 ?>
 <main>
     <?php
         require __DIR__ . "/{$cheminVueBody}";
     ?>
-    <?php
-        require 'cart.php';
-    ?>
 </main>
+<?php
+    require __DIR__ . "/cart.php";
+?>
 <footer>
     <p>
         Site créé par Alfonso Jimenez, Tristan Radulescu et Damien Mathieu<br>

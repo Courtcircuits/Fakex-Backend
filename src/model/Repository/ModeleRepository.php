@@ -79,10 +79,10 @@ class ModeleRepository
 
     public function selectOne(int $chaussureID):Modele{
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "SELECT * FROM Modele WHERE nom = :nomTag";
+        $requete = "SELECT * FROM Modele WHERE idModele = :idTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
-            'nomTag' => $chaussureID
+            'idTag' => $chaussureID
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetch();
