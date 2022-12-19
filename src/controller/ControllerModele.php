@@ -21,7 +21,8 @@ class ControllerModele {
     public static function readAll(){
         $modeles = (new ModeleRepository())->selectAll();
         self::afficheVue('view.php',['modeles'=>$modeles,"pagetitle"=>"Accueil"
-        ,"cheminVueBody"=>"Accueil/readAll.php"]);    }
+        ,"cheminVueBody"=>"Accueil/readAll.php"]);
+    }
     public static function readMen(){
         $modeles = (new ModeleRepository())->selectMen();
         self::afficheVue('view.php',['modeles'=>$modeles,"pagetitle"=>"Men Shoes"

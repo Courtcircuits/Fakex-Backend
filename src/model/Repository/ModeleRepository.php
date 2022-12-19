@@ -127,7 +127,7 @@ class ModeleRepository
     public function recommandShoe($pattern):array{
         $pdoStatement = DatabaseConnection::getPdo();
         $pattern = '%'.$pattern.'%';
-        $sql = "SELECT nom FROM Modele WHERE nom LIKE :pattern";
+        $sql = "SELECT idModele,nom FROM Modele WHERE nom LIKE :pattern";
         $pdoStatement = $pdoStatement->prepare($sql);
         $values = [
             'pattern' => $pattern
@@ -136,7 +136,7 @@ class ModeleRepository
         $resultset = $pdoStatement->fetchAll();
         $toreturn = [];
         foreach ($resultset as $row){
-            $toreturn[] = $row['nom'];
+            $toreturn[] = ["nom" => $row['nom'], "id" => $row['idModele']];
         }
         return $toreturn;
     }

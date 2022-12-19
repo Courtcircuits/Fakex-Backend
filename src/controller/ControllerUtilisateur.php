@@ -71,5 +71,9 @@ class ControllerUtilisateur{
         ControllerModele::readAll();
        
     }
+
+    public static function getPanier(){
+        
+    }
 }
 ?>

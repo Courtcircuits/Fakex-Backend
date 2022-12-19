@@ -58,8 +58,9 @@ function getRecommandations(pattern) {
     fetch(url+'?action=recommand&controller=modele&search=' + pattern)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             for (let i = 0; i < data.length; i++) {
-                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\""+ url + "?action=readProduct&controller=modele&id="+data[i] +"\">" + data[i] + "</a></li>";
+                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\""+ url + "?action=readProduct&controller=modele&id="+data[i].id +"\">" + data[i].nom+ "</a></li>";
             }
         });
 }
