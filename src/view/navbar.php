@@ -15,8 +15,7 @@
             <?php
             if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 // L'utilisateur est connecté
-                echo '<a>Logged in as ' . $_SESSION['login'] . '</a>';
-                echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li>';
+                echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li><li><a>' . $_SESSION['login'] . '</a</li>';
             } else {
                 // L'utilisateur n'est pas connecté
                 echo '<li><a href="frontController.php?action=connexionUtilisateur&controller=utilisateur">Log in</a></li>';
