@@ -57,6 +57,15 @@ class ControllerModele {
         echo json_encode($recommandations);
         header("Content-Type: application/json");
     }
+
+    public static function bestSeller(){
+
+        $bestSeller = (new ModeleRepository())->getBestSeller($_GET['rank']);
+        //print as a json array content of $recommandations
+        echo json_encode($bestSeller);
+        header("Content-Type: application/json");
+    }
+
 }
 ?>
 

@@ -116,6 +116,8 @@ nav #icons li p svg {
 #hero #slider {
     height: 40vh;
     margin-right: 50px;
+    position: relative;
+    z-index: 100000;
 }
 
 #hero #slider ul {

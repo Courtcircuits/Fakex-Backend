@@ -2,6 +2,7 @@ let trigger = document.getElementById("trigger");
 let search = document.getElementById("searchbar");
 
 
+
 trigger.addEventListener("mousedown", () => {
     search.classList.toggle("activated");
 })
@@ -72,3 +73,4 @@ document.getElementById("searchbar-input").addEventListener("keyup", () => {
 
     }
 });
+

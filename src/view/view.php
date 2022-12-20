@@ -36,5 +36,7 @@ error_reporting(E_ALL);
     </p>
 </footer>
 <script src="./js/script.js"></script>
+<script src="./js/hero.js"></script>
+
 </body>
 </html> 

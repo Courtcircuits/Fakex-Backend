@@ -116,6 +116,24 @@ class ModeleRepository
         $pdoStatement->execute($values);
     }
 
+    public function getBestSeller(int $rank): array{
+
+        $sql = 'SELECT * FROM Modele m JOIN LigneCommande l ON l.idModele=m.idModele GROUP BY m.idModele ORDER BY COUNT(m.idModele) DESC LIMIT :rankTag, 1';
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $pdoStatement->bindParam(':rankTag', $rank, \PDO::PARAM_INT);
+
+
+        $pdoStatement->execute();
+        $result = $pdoStatement->fetch();
+
+        return [
+            "nom" => $result['nom'],
+            "prix" => $result['prix'],
+            "creator" => $result['creator']
+        ];
+    }
+
     /**
      * Cette méthode cherche toutes les chaussures qui ont un même pattern
      * Autrement dit, on cherche toutes les mêmes chaussures dans la BD?
