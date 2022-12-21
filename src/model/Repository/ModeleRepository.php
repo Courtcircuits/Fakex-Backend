@@ -30,7 +30,7 @@ class ModeleRepository
                 $listResult['nom'],
                 $listResult['prix'],
                 $listResult['creator'],
-                $listResult['imageBlob'],
+                $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
                 $listResult['genre']
@@ -49,7 +49,7 @@ class ModeleRepository
                 $listResult['nom'],
                 $listResult['prix'],
                 $listResult['creator'],
-                $listResult['imageBlob'],
+                $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
                 $listResult['genre']
@@ -68,7 +68,7 @@ class ModeleRepository
                 $listResult['nom'],
                 $listResult['prix'],
                 $listResult['creator'],
-                $listResult['imageBlob'],
+                $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
                 $listResult['genre']
@@ -91,7 +91,7 @@ class ModeleRepository
             $result['nom'],
             $result['prix'],
             $result['creator'],
-            $result['imageBlob'],
+            $result['imageUrl'],
             $result['minSize'],
             $result['maxSize'],
             $result['genre']
@@ -101,14 +101,14 @@ class ModeleRepository
 
     public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageBlob, minSize,maxSize, genre) 
-        VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageBlobTag, :minSizeTag, :maxSizeTag, :genreTag)";
+        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageUrl, minSize,maxSize, genre) 
+        VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageUrl, :minSizeTag, :maxSizeTag, :genreTag)";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'nomTag' => $shoe->getNom(),
             'prixTag' => $shoe->getPrix(),
             'creatorTag' => $shoe->getCreator(),
-            'imageBlobTag' => $shoe->getImageBlob(),
+            'imageUrl' => $shoe->getImageUrl(),
             'minSizeTag' => $shoe->getMinSize(),
             'maxSizeTag' => $shoe->getMaxSize(),
             'genreTag' => $shoe->getGenre()
@@ -127,10 +127,27 @@ class ModeleRepository
         $pdoStatement->execute();
         $result = $pdoStatement->fetch();
 
+        $sql = 'SELECT * FROM Modele WHERE creator=:creatorTag LIMIT 3';
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $pdoStatement->execute(array(
+            'creatorTag' => $result['creator']
+        ));
+
+        $resultb = $pdoStatement->fetchAll();
+        $liste = array();
+        foreach ($resultb as $resultset){
+            $liste[] = [
+              "image" => $resultset['imageUrl']
+            ];
+        }
+
         return [
             "nom" => $result['nom'],
             "prix" => $result['prix'],
-            "creator" => $result['creator']
+            "creator" => $result['creator'],
+            "image" => $result['imageUrl'],
+            "others"=>$liste
         ];
     }
 
@@ -160,12 +177,12 @@ class ModeleRepository
     }
 
     public function add(Modele $modele):void{
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO Modele (nom, prix, creator, imageBlob, minSize, maxSize) VALUES (:nom, :prix, :creator, :imageBlob, :minSize, :maxSize)");
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO Modele (nom, prix, creator, imageUrl, minSize, maxSize) VALUES (:nom, :prix, :creator, :imageUrl, :minSize, :maxSize)");
         $pdoStatement->execute([
             'nom' => $modele->getNom(),
             'prix' => $modele->getPrix(),
             'creator' => $modele->getCreator(),
-            'imageBlob' => $modele->getImageBlob(),
+            'imageUrl' => $modele->getimageUrl(),
             'minSize' => $modele->getMinSize(),
             'maxSize' => $modele->getMaxSize()
         ]);

@@ -57,7 +57,7 @@
         foreach ($modeles as $modele){
             echo '
             <div id="content-cart">
-            <img src="data:image/jpg;base64,' . base64_encode($modele->getImageBlob()) . '"/>
+            <img src="' . $modele->getImageUrl() . '"/>
         <div id="legend" class="contain">
             <h3>' . $modele->getNom() . '</h3>
             <div>

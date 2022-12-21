@@ -15,7 +15,7 @@ class Modele
     public string $nom;
     public int $prix;
     public string $creator;
-    public $imageBlob;
+    public string $imageUrl;
     public string $genre;
 
     public string $minSize;
@@ -56,9 +56,9 @@ class Modele
     /**
      * @return Image
      */
-    public function getImageBlob(): string
+    public function getImageUrl(): string
     {
-        return $this->imageBlob;
+        return $this->imageUrl;
     }
 
     /**
@@ -88,7 +88,7 @@ class Modele
             'nom' => $this->nom,
             'prix' => $this->prix,
             'creator' => $this->creator,
-            'imageBlob' => $this->imageBlob
+            'imageUrl' => $this->imageUrl
 
         ];
     }
@@ -98,7 +98,7 @@ class Modele
         $nom,
         $prix,
         $creator,
-        $imageBlob,
+        $imageUrl,
         $minSize,
         $maxSize,
         $genre
@@ -108,7 +108,7 @@ class Modele
         $this->nom = $nom;
         $this->prix = $prix;
         $this->creator = $creator;
-        $this->imageBlob = $imageBlob;
+        $this->imageUrl = $imageUrl;
         $this->minSize = $minSize;
         $this->maxSize = $maxSize;
         $this->genre = $genre;

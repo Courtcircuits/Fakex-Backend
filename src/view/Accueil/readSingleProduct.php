@@ -1,7 +1,7 @@
 
 <div id="product">
     <div>
-        <?php echo '<img src="data:image/jpg;base64,' . base64_encode($modele->getImageBlob()) . '"/>'; ?>
+        <?php echo '<img src="' . $modele->getImageUrl() . '"/>'; ?>
     </div>
     <div id="details">
         <div id="header-details">

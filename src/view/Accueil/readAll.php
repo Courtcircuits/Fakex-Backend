@@ -17,7 +17,7 @@
             <div>
                 <h1>BEST SELLER</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Cette paire est la plus vendue de notre site. Vous aussi achetez la !
                 </p>
                 <a href="add" class="btn">Add to Bag</a>
 
@@ -29,14 +29,12 @@
 
         </div>
         <div id="image">
-            <img src="static/img/main.png">
+            <img src="static/img/main.png" >
         </div>
     </main>
     <aside>
         <h2>BY THE SAME CREATOR</h2>
-        <img src="static/img/index%204.png">
-        <img src="static/img/shoe2.png">
-        <img src="static/img/shoe3.png">
+
     </aside>
 </div>
 <br>
@@ -49,7 +47,7 @@
 
     foreach ($modeles as $modele){
         echo '<div>
-    <a href="frontController.php?action=readSingleProduct&controller=modele&id=' . $modele->getIDModele() . '"/><img src="data:image/jpg;base64,' . base64_encode($modele->getImageBlob()) . '"/></a>
+    <a href="frontController.php?action=readSingleProduct&controller=modele&id=' . $modele->getIDModele() . '"/><img src="' . $modele->getImageUrl() . '"/></a>
     <div class="legend">
         <p>' . $modele->getNom() . ' BY ' . $modele->getCreator() . '</p>
         <p>$' . $modele->getPrix() . ' / ' . $modele->getMinSize() . ' - ' . $modele->getMaxSize() . '</p>

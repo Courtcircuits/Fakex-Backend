@@ -142,7 +142,7 @@ class UtilisateurRepository
                     $result[0]['nom'],
                     $result[0]['prix'],
                     $result[0]['creator'],
-                    $result[0]['imageBlob'],
+                    $result[0]['imageUrl'],
                     $result[0]['minSize'],
                     $result[0]['maxSize'],
                     $result[0]['genre']
