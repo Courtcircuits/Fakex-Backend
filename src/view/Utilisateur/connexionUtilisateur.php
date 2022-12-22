@@ -1,7 +1,7 @@
 <div id="connection">
     <form method="get" action="frontController.php">
         <fieldset>
-            <legend>Connexion en tant que créateur</legend>
+            <legend>Connexion</legend>
             <hr>
 
             <input type='hidden' name='action' value='connectedUtilisateurLambda'>

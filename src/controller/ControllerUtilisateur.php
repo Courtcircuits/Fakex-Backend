@@ -69,7 +69,6 @@ class ControllerUtilisateur{
         session_destroy();
         session_unset();
         ControllerModele::readAll();
-       
     }
 
     public static function getPanier(){
