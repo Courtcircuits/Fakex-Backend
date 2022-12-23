@@ -57,6 +57,14 @@ class ControllerUtilisateur{
         self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
         ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php"]);
     }
+    public static function affichagePanier(){
+        self::afficheVue('view.php', ["pagetitle"=>"Panier",
+            "cheminVueBody"=>"Utilisateur/panierUtilisateur.php"]);
+    }
+    public static function paiement(){
+        self::afficheVue("view.php", ["pagetitle"=>"Paiement",
+            "cheminVueBody"=>"Utilisateur/paiementUtilisateur.php"]);
+    }
 
     public static function created(){
         $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$_GET['password'],$_GET['email']);

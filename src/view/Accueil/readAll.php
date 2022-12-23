@@ -44,7 +44,6 @@
 <div id="feed">
 
 <?php
-
     foreach ($modeles as $modele){
         echo '<div>
     <a href="frontController.php?action=readSingleProduct&controller=modele&id=' . $modele->getIDModele() . '"/><img src="' . $modele->getImageUrl() . '"/></a>
@@ -53,8 +52,6 @@
         <p>$' . $modele->getPrix() . ' / ' . $modele->getMinSize() . ' - ' . $modele->getMaxSize() . '</p>
 </div>
 </div>
-
-
 ';
     }
 

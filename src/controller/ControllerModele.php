@@ -89,7 +89,7 @@ class ControllerModele
     {
         $modele = (new ModeleRepository())->selectOne($_GET['id']);
         self::afficheVue('view.php', ['modele' => $modele,
-            "pageTitle" => "Affichage Produit Unique",
+            "pagetitle" => $modele->getNom() ." BY ". $modele->getCreator(),
             "cheminVueBody" => "Accueil/readSingleProduct.php"]);
     }
 
