@@ -41,6 +41,4 @@ foreach ($modeles as $modele){
 </div>
 <div id="summary" class="contain">
     <a href="frontController.php?action=paiement&controller=utilisateur">PAIEMENT</a>
-    <a>Test</a>
-    <a>Second Test</a>
 </div>

@@ -7,7 +7,7 @@ use Serializable;
 
 class UtilisateurRepository
 {
-    public function add(Utilisateur $creator){
+    public function addUtilisateur(Utilisateur $creator){
         $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login)");
         $pdoStatement->execute([
             "login" => $creator->getLogin(),
@@ -99,6 +99,33 @@ class UtilisateurRepository
             'idModele' => $idModele,     );
         $pdoStatement->execute($values);
         
+    }
+    public function suprProd($idModele){
+        session_start();
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "SELECT idUtilisateur FROM utilisateur WHERE login= :loginTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'loginTag'=>$_SESSION['login']
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetchAll();
+        $requete = "Select idPanier from Panier where idUtilisateur = :idUtilisateur";
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'idUtilisateur' => $result[0]['idUtilisateur']
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetchAll();
+        $requete = "DELETE FROM LigneCommande WHERE idPanier = :idPanier AND idModele = :idModele";
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'idPanier' => $result[0]['idPanier'],
+            'idModele' => $idModele,     );
+        $pdoStatement->execute($values);
+
     }
 
     public static function getProdPanier():array{

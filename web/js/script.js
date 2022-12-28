@@ -16,6 +16,7 @@ document.getElementById("closeCart").addEventListener("mousedown", () => {
     document.getElementById("cart").classList.add("hide");
 })
 
+
 const sizes = document.getElementsByClassName("size-btn");
 
 

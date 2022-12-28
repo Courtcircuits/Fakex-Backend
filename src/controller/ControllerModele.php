@@ -99,6 +99,12 @@ class ControllerModele
         (new UtilisateurRepository())->ajoutProd($idModele);
         ControllerModele::readAll();
     }
+    public static function suprProduitPanier()
+    {
+        $idModele = $_GET['idmodele'];
+        (new UtilisateurRepository()) ->suprProd($idModele);
+        ControllerModele::readAll();
+    }
 
     public static function recommand()
     {
