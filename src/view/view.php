@@ -19,7 +19,6 @@ error_reporting(E_ALL);
 </head>
 <body>
 <?php
-
     require __DIR__ . "/navbar.php";
 ?>
 <main>
