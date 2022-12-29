@@ -20,10 +20,7 @@
                     Cette paire est la plus vendue de notre site. Vous aussi achetez la !
                 </p>
 
-                <a href="frontController.php?
-                action=addProduitPanier&
-                controller=modele&
-                idmodele=9"
+                <a href="frontController.php?action=addProduitPanier&controller=modele&idmodele=9"
                    class="btn">Add to Bag</a>
 
             </div>

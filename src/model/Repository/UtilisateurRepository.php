@@ -118,7 +118,16 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-        $requete = "DELETE FROM LigneCommande WHERE idPanier = :idPanier AND idModele = :idModele";
+        //DELETE FROM LigneCommande WHERE
+        //LigneCommandeID = (SELECT MIN(LigneCommandeID) FROM LigneCommande
+        //	WHERE idPanier = 8 AND idModele = 10)
+        //AND idPanier = 8
+        //AND idModele = 10;
+        $requete = "DELETE FROM LigneCommande WHERE LigneCommandeID = 
+                                (SELECT MIN(LigneCommandeID) FROM LigneCommande
+        	WHERE idPanier = :idPanier AND idModele = :idModele)
+            AND idPanier = :idPanier 
+            AND idModele = :idModele";
         $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
