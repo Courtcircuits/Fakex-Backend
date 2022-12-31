@@ -52,13 +52,14 @@
         ?>
         <hr>
         <?php
-
-        if(empty($modeles)){
+        if(!isset($_SESSION['login'])){
             echo '<div id="summary" class="contain">
 <a href="frontController.php?action=inscriptionCreateur&controller=utilisateur">S\'INSCRIRE</a>
 <a href="frontController.php?action=connexionCreateur&controller=utilisateur">SE CONNECTER</a>
 </div>
 ';
+        }else if(empty($modeles)){
+
         }else{
             echo '<div id="summary" class="contain">
             <div>

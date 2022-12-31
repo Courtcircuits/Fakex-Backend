@@ -572,7 +572,7 @@ nav #icons .activated #suggestions{
     width: fit-content;
     background: black;
     color: #F5F2E9;
-
+    z-index: 10;
 }
 
 nav #icons .activated #suggestions ol{
