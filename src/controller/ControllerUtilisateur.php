@@ -3,6 +3,8 @@ namespace App\Fakex\controller;
 use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\ModeleRepository;
 use App\Fakex\model\Repository\UtilisateurRepository;
+DEFINE ('SALT_SUFFIX', 'wsh6759n' );
+DEFINE ('SALT_PREFIX', 'hsgt49U2');
 class ControllerUtilisateur{
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
@@ -21,7 +23,8 @@ class ControllerUtilisateur{
 
     public static function connectedUtilisateurCreateur(){
         $login = $_GET['login'];
-        $pwd = $_GET['password'];
+
+        $pwd = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
         $result = (new UtilisateurRepository())->checkCreateur($login,$pwd);
         if($result){
             session_start();
@@ -39,7 +42,7 @@ class ControllerUtilisateur{
 
     public static function connectedUtilisateurLambda(){
         $login = $_GET['login'];
-        $pwd = $_GET['password'];
+        $pwd = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
         $result = (new UtilisateurRepository())->checkGlobal($login,$pwd);
         if($result){
             session_start();
@@ -57,17 +60,23 @@ class ControllerUtilisateur{
         self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
         ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php"]);
     }
+
     public static function affichagePanier(){
         self::afficheVue('view.php', ["pagetitle"=>"Panier",
             "cheminVueBody"=>"Utilisateur/panierUtilisateur.php"]);
     }
+
     public static function paiement(){
         self::afficheVue("view.php", ["pagetitle"=>"Paiement",
             "cheminVueBody"=>"Utilisateur/paiementUtilisateur.php"]);
     }
 
     public static function created(){
-        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$_GET['password'],$_GET['email']);
+
+        $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
+
+
+        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,$_GET['email']);
         (new UtilisateurRepository())->addUtilisateur($user);
 
     }
