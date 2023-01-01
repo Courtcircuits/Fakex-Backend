@@ -96,7 +96,7 @@ class UtilisateurRepository
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'idPanier' => $result[0]['idPanier'],
-            'idModele' => $idModele,     );
+            'idModele' => $idModele,    );
         $pdoStatement->execute($values);
         
     }
@@ -181,7 +181,8 @@ class UtilisateurRepository
                     $result[0]['imageUrl'],
                     $result[0]['minSize'],
                     $result[0]['maxSize'],
-                    $result[0]['genre']
+                    $result[0]['genre'],
+                    $result[0]['quantity']
                 );
             }
             return $liste;

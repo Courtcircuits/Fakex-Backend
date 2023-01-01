@@ -87,36 +87,37 @@ class ControllerModele
 
     }
 
-    public static function createShoe(){
+    public static function createShoe()
+    {
         $createur = (new UtilisateurRepository())->getCreateur($_SESSION['login']);
 
-        self::afficheVue('view.php',["pagetitle"=>"Ajoutez votre produit"
-            ,"cheminVueBody"=>"Produit/creationProduit.php","nomCreateur"=> $createur]);
+        self::afficheVue('view.php', ["pagetitle" => "Ajoutez votre produit"
+            , "cheminVueBody" => "Produit/creationProduit.php", "nomCreateur" => $createur]);
     }
 
     public static function readSingleProduct()
     {
         $modele = (new ModeleRepository())->selectOne($_GET['id']);
         self::afficheVue('view.php', ['modele' => $modele,
-            "pagetitle" => $modele->getNom() ." BY ". $modele->getCreator(),
+            "pagetitle" => $modele->getNom() . " BY " . $modele->getCreator(),
             "cheminVueBody" => "Accueil/readSingleProduct.php"]);
     }
 
     public static function addProduitPanier()
     {
-        if (session_id() != ''){
+        if (session_id() != '') {
             $idModele = $_GET['idmodele'];
             (new UtilisateurRepository())->ajoutProd($idModele);
             ControllerModele::readAll();
         }
         ControllerModele::readAll();
-        //affiche alarm in javaSript ? How to do it ? Mmmmm 🧐???$
 
     }
+
     public static function suprProduitPanier()
     {
         $idModele = $_GET['idmodele'];
-        (new UtilisateurRepository()) ->suprProd($idModele);
+        (new UtilisateurRepository())->suprProd($idModele);
         ControllerModele::readAll();
     }
 
