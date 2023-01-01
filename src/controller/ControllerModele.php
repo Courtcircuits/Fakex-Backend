@@ -105,20 +105,42 @@ class ControllerModele
 
     public static function addProduitPanier()
     {
-        if (session_id() != '') {
+        if (isset($_SESSION['login'])) {
             $idModele = $_GET['idmodele'];
             (new UtilisateurRepository())->ajoutProd($idModele);
             ControllerModele::readAll();
+        }else{
+            //add modele to $_COOKIE['panier']
+            $idModele = $_GET['idmodele'];
+            //add modele to $_COOKIE['panier']
+            if (isset($_COOKIE['panier'])) {
+                $panier = unserialize($_COOKIE['panier']);
+                $panier[] = $idModele;
+                setcookie('panier', serialize($panier), time() + 3600);
+            } else {
+                $panier = array();
+                $panier[] = $idModele;
+                setcookie('panier', serialize($panier), time() + 3600);
+            }
+            var_dump($_COOKIE['panier']);
+            ControllerModele::readAll();
         }
-        ControllerModele::readAll();
-
     }
 
     public static function suprProduitPanier()
     {
-        $idModele = $_GET['idmodele'];
-        (new UtilisateurRepository())->suprProd($idModele);
-        ControllerModele::readAll();
+        if(isset($_SESSION['login'])) {
+            $idModele = $_GET['idmodele'];
+            (new UtilisateurRepository())->suprProd($idModele);
+            ControllerModele::readAll();
+        }else{
+            $idModele = $_GET['idmodele'];
+            $panier = unserialize($_COOKIE['panier']);
+            $key = array_search($idModele, $panier);
+            unset($panier[$key]);
+            setcookie('panier', serialize($panier), time() + 3600);
+            ControllerModele::readAll();
+        }
     }
 
     public static function recommand()
