@@ -73,7 +73,8 @@ class ModeleRepository
                 $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
-                $listResult['genre']
+                $listResult['genre'],
+                $listResult['quantity']
             );
         }
         return $liste;
