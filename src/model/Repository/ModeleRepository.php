@@ -33,7 +33,8 @@ class ModeleRepository
                 $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
-                $listResult['genre']
+                $listResult['genre'],
+                $listResult['quantity']
             );
         }
         return $liste;
@@ -52,7 +53,8 @@ class ModeleRepository
                 $listResult['imageUrl'],
                 $listResult['minSize'],
                 $listResult['maxSize'],
-                $listResult['genre']
+                $listResult['genre'],
+                $listResult['quantity']
             );
         }
         return $liste;
@@ -94,15 +96,16 @@ class ModeleRepository
             $result['imageUrl'],
             $result['minSize'],
             $result['maxSize'],
-            $result['genre']
+            $result['genre'],
+            $result['quantity']
         );
         return $modele;
     }
 
     public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
-        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageUrl, minSize,maxSize, genre) 
-        VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageUrl, :minSizeTag, :maxSizeTag, :genreTag)";
+        $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageUrl, minSize,maxSize, genre, quantity) 
+        VALUES (NULL, :nomTag, :prixTag, :creatorTag, :imageUrl, :minSizeTag, :maxSizeTag, :genreTag, :quantityTag)";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'nomTag' => $shoe->getNom(),
@@ -111,7 +114,8 @@ class ModeleRepository
             'imageUrl' => $shoe->getImageUrl(),
             'minSizeTag' => $shoe->getMinSize(),
             'maxSizeTag' => $shoe->getMaxSize(),
-            'genreTag' => $shoe->getGenre()
+            'genreTag' => $shoe->getGenre(),
+            'quantityTag' => $shoe->getQuantity()
         );
         $pdoStatement->execute($values);
     }
@@ -176,16 +180,5 @@ class ModeleRepository
         return $toreturn;
     }
 
-    public function add(Modele $modele):void{
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO Modele (nom, prix, creator, imageUrl, minSize, maxSize) VALUES (:nom, :prix, :creator, :imageUrl, :minSize, :maxSize)");
-        $pdoStatement->execute([
-            'nom' => $modele->getNom(),
-            'prix' => $modele->getPrix(),
-            'creator' => $modele->getCreator(),
-            'imageUrl' => $modele->getimageUrl(),
-            'minSize' => $modele->getMinSize(),
-            'maxSize' => $modele->getMaxSize()
-        ]);
 
-    }
 }

@@ -10,7 +10,13 @@
     </div>
     <div>
         <ul>
-            <li><a href="frontController.php?action=connexionCreateur&controller=utilisateur">Creators</a></li>
+            <li><a href="<?php
+            if(isset($_SESSION['login'])){
+                echo "frontController.php?action=readAll&controller=modele";
+            }else{
+                echo "frontController.php?action=connexionCreateur&controller=utilisateur";
+            }
+            ?>">Creators</a></li>
             <li><a href="frontController.php?action=readMen&controller=modele">Men</a></li>
             <li><a href="frontController.php?action=readWomen&controller=modele">Women</a></li>
             <?php

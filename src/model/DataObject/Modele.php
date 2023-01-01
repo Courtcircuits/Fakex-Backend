@@ -20,6 +20,32 @@ class Modele
 
     public string $minSize;
     public string $maxSize;
+    public int $quantity;
+
+    /**
+     * @param int|null $idModele
+     * @param string $nom
+     * @param int $prix
+     * @param string $creator
+     * @param string $imageUrl
+     * @param string $genre
+     * @param string $minSize
+     * @param string $maxSize
+     * @param int $quantity
+     */
+    public function __construct(?int $idModele, string $nom, int $prix, string $creator, string $imageUrl,  string $minSize, string $maxSize, string $genre,int $quantity)
+    {
+        $this->idModele = $idModele;
+        $this->nom = $nom;
+        $this->prix = $prix;
+        $this->creator = $creator;
+        $this->imageUrl = $imageUrl;
+        $this->genre = $genre;
+        $this->minSize = $minSize;
+        $this->maxSize = $maxSize;
+        $this->quantity = $quantity;
+    }
+
 
     /**
      * @return string
@@ -82,6 +108,16 @@ class Modele
         return $this->genre;
     }
 
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+
+
     public function modeleAsJson(): array
     {
         return [
@@ -93,26 +129,7 @@ class Modele
         ];
     }
 
-    public function __construct(
-        $idModele,
-        $nom,
-        $prix,
-        $creator,
-        $imageUrl,
-        $minSize,
-        $maxSize,
-        $genre
-    )
-    {
-        $this->idModele = $idModele;
-        $this->nom = $nom;
-        $this->prix = $prix;
-        $this->creator = $creator;
-        $this->imageUrl = $imageUrl;
-        $this->minSize = $minSize;
-        $this->maxSize = $maxSize;
-        $this->genre = $genre;
-    }
+
 
 
 }

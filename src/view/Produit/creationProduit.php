@@ -21,6 +21,8 @@
                 <label for="image">Image de votre paire</label>
                 <input type="file" name="image"     accept="image/*" required/>
 
+                <label for="quantity">Quantities : </label>
+                <input type="number" name="quantity" required />
                 <input type="submit" value="Envoyer"/>
         </fieldset>
     </form>

@@ -23,8 +23,10 @@
                 echo '<div class="size-btn"><p>'.$i.'</p></div>';
             }
             ?>
-
-
+        </div>
+        <div id="quantities">
+            <p><b>Quantities : </b></p>
+            <input type="number" min="1" max="<?php echo $modele->getQuantity(); ?>">
         </div>
         <a href="frontController.php?action=addProduitPanier&controller=modele&idmodele=<?php echo $modele->getIdModele();?>" >ADD TO CART</a>
         <a href="like" id="save">SAVE
