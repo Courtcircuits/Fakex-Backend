@@ -12,7 +12,7 @@
         <ul>
             <li><a href="<?php
             if(isset($_SESSION['login'])){
-                echo "frontController.php?action=readAll&controller=modele";
+                echo "frontController.php?action=createShoe&controller=modele";
             }else{
                 echo "frontController.php?action=connexionCreateur&controller=utilisateur";
             }

@@ -1,10 +1,14 @@
 <?php
 namespace App\Fakex\controller;
 
+
 use App\Fakex\model\Repository\ModeleRepository;
 use App\Fakex\model\DataObject\Modele;
 use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\UtilisateurRepository;
+
+session_start();
+
 
 /**
  * Cette méthode est la classe intermédiaire entre les repository's et les vues
@@ -45,9 +49,7 @@ class ControllerModele
 
     public static function created()
     {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+
         if (isset($_FILES['image'])) {
             $img_name = $_FILES['image']['name'];
             $img_size = $_FILES['image']['size'];
@@ -67,7 +69,7 @@ class ControllerModele
                         $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
                         $img_path = __DIR__ . '/../../web/img/uploads/' . $new_img_name;
                         move_uploaded_file($tmp_name, $img_path);
-                        $modele = new Modele(0, $_POST['paire'], $_POST['prix'], $_POST['createur'], 'frontController.php?action=afficheImage&controller=image&idImage=' . $new_img_name, 39, 45, $_POST['genre']);
+                        $modele = new Modele(0, $_POST['paire'], $_POST['prix'], $_POST['createur'], 'frontController.php?action=afficheImage&controller=image&idImage=' . $new_img_name, 39, 45, $_POST['genre'], $_POST["quantity"]);
                         (new ModeleRepository())->createShoe($modele);
                         self::afficheVue('view.php', ["pagetitle" => "Connectez-vous"
                             , "cheminVueBody" => "Produit/testAffichageImage.php"]);
