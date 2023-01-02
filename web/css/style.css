@@ -662,6 +662,7 @@ nav #icons .activated #suggestions li{
 .btnpages{
     background: transparent;
     margin-bottom: 10px;
+    margin-top: 10px;
     border: solid 1px black;
     transition: 0.2s linear all;
     border-radius: 0px;

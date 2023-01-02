@@ -124,7 +124,6 @@ class ControllerModele
                 $panier[] = $idModele;
                 setcookie('panier', serialize($panier), time() + 3600);
             }
-            var_dump($_COOKIE['panier']);
             ControllerModele::readAll();
         }
     }

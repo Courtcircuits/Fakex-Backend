@@ -12,12 +12,16 @@
             <th>Total</th>
         </tr>
         <?php
+        use App\Fakex\model\Repository\ModeleRepository;
         use App\Fakex\model\Repository\UtilisateurRepository;
         
         if(isset($_SESSION['login'])){
             $panier = UtilisateurRepository::getProdPanier();
         }else{
-            $panier = unserialize($_COOKIE['panier']);
+            $modeles = unserialize($_COOKIE['panier']);
+            foreach($modeles as $elt){
+                $panier[] = (new ModeleRepository())->selectOne(intval($elt));
+            }
         }
         $total = 0;
         foreach ($panier as $produit) {
