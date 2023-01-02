@@ -40,7 +40,7 @@ class Conf {
 
     //a changer pour le projet
     static public function getAbsoluteURL() : string {
-        return "http://localhost:80/backend";
+        return "https://webinfo.iutmontp.univ-montp2.fr/~radulescut/backend/web/frontController.php";
     }
 
 }

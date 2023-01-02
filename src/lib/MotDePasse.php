@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Fakex\Lib;
+namespace App\Fakex\lib;
 
 class MotDePasse
 {

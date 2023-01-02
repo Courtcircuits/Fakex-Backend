@@ -7,7 +7,9 @@ use App\Fakex\model\DataObject\Modele;
 use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\UtilisateurRepository;
 
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 
 /**

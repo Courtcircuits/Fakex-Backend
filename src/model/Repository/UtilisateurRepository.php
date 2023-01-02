@@ -12,20 +12,33 @@ class UtilisateurRepository
 {
     public function addUtilisateur(Utilisateur $creator)
     {
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login)");
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur, mailToValidate, nonce) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login, :mailToValidate, :nonce)");
         $pdoStatement->execute([
             "login" => $creator->getLogin(),
             "password" => $creator->getPassword(),
             "createur" => $creator->getCreator(),
             "email" => $creator->getEmail(),
             "nom" => $creator->getNom(),
-            "prenom" => $creator->getPrenom()
+            "prenom" => $creator->getPrenom(),
+            "mailToValidate" => $creator->getEmailToValidate(),
+            "nonce" => $creator->getNonce()
         ]);
+
+        //get idUtilisateur from database
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("SELECT idUtilisateur FROM utilisateur WHERE login = :login");
+        $pdoStatement->execute([
+            "login" => $creator->getLogin()
+        ]);
+        $result = $pdoStatement->fetch();
+        $creator->setIdUtilisateur($result['idUtilisateur']);
+
+
         $requete = "INSERT INTO Panier(idUtilisateur) VALUES (:idUtilisateur)";
         $pdoStatement = DatabaseConnection::getPdo()->prepare($requete);
         $pdoStatement->execute([
-            "idUtilisateur" => $creator->getIdUtilisateur(),
+            "idUtilisateur" => $creator->getIdUtilisateur()
         ]);
+    
 
     }
 
@@ -89,12 +102,14 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-        return new Utilisateur($result[0]['nomCreateur'],$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
+        return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
     }
 
     public function ajoutProd($idModele)
     {
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
         $pdoStatement = $pdoStatement->prepare($requete);
@@ -227,7 +242,33 @@ class UtilisateurRepository
         $result = $pdoStatement->fetchAll();
         return $result[0]['total'];
     }
+
+    public function checkNonce($login,$nonce):bool{
+        return $this->getUser($login)->getNonce() == $nonce;
+    }
+
+
+    public function validerEmail($login){
+        $sql = "UPDATE utilisateur SET emailValide = 1 WHERE login = :login";
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $values = array(
+            'login' => $login
+        );
+        $pdoStatement->execute($values);
+    }
+
+    public function delete($login){
+        $sql = "DELETE FROM utilisateur WHERE login = :login";
+        $pdoStatement = DatabaseConnection::getPdo();
+        $pdoStatement = $pdoStatement->prepare($sql);
+        $values = array(
+            'login' => $login
+        );
+        $pdoStatement->execute($values);
+    }
 }
+
 
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Fakex\controller;
 use App\Fakex\model\Repository\ModeleRepository;
+use App\Fakex\model\Repository\UtilisateurRepository;
 class ControllerDefault {
 
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
