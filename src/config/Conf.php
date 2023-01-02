@@ -38,6 +38,11 @@ class Conf {
       return static::$databases['password'];
     }
 
+    //a changer pour le projet
+    static public function getAbsoluteURL() : string {
+        return "http://localhost:80/backend";
+    }
+
 }
 ?>
 

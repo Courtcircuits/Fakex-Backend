@@ -1,5 +1,7 @@
 <?php
 namespace App\Fakex\controller;
+use App\Fakex\Lib\MotDePasse;
+use App\Fakex\Lib\VerificationEmail;
 use App\Fakex\model\DataObject\Utilisateur;
 use App\Fakex\model\Repository\ModeleRepository;
 use App\Fakex\model\Repository\UtilisateurRepository;
@@ -76,9 +78,25 @@ class ControllerUtilisateur{
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
 
 
-        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,$_GET['email']);
-        (new UtilisateurRepository())->addUtilisateur($user);
+        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
+        VerificationEmail::envoiEmailValidation($user);
 
+
+    }
+
+    public static function validerEmail(){
+        $login = $_GET['login'];
+        $nonce = $_GET['nonce'];
+        $result = (new UtilisateurRepository())->checkNonce($login,$nonce);
+        if($result){
+            (new UtilisateurRepository())->validerEmail($login);
+            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+            ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php","message"=>"Votre email a bien été validé"]);
+        }
+        else{
+            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+            ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php","message"=>"Votre email n'a pas pu être validé"]);
+        }
     }
 
     public static function deconnexion(){

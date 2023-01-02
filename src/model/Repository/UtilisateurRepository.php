@@ -1,13 +1,17 @@
 <?php
+
 namespace App\Fakex\model\Repository;
+
 use App\Fakex\model\DataObject\Modele;
 use App\Fakex\model\DataObject\Utilisateur;
+use http\Client\Curl\User;
 use LDAP\Result;
 use Serializable;
 
 class UtilisateurRepository
 {
-    public function addUtilisateur(Utilisateur $creator){
+    public function addUtilisateur(Utilisateur $creator)
+    {
         $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login)");
         $pdoStatement->execute([
             "login" => $creator->getLogin(),
@@ -22,40 +26,41 @@ class UtilisateurRepository
         $pdoStatement->execute([
             "idUtilisateur" => $creator->getIdUtilisateur(),
         ]);
-        
+
     }
-    public function checkCreateur($login,$pwd): bool{
+
+    public function checkCreateur($login, $pwd): bool
+    {
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM utilisateur where login = :loginTag and password = :passwordTag and createur = 1";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'loginTag' => $login
-            ,'passwordTag' => $pwd
+        , 'passwordTag' => $pwd
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetch();
-        if(!$result) {
+        if (!$result) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
-    public function checkGlobal($login,$pwd): bool{
+    public function checkGlobal($login, $pwd): bool
+    {
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM utilisateur where login = :loginTag and password = :passwordTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'loginTag' => $login
-            ,'passwordTag' => $pwd
+        , 'passwordTag' => $pwd
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetch();
-        if(!$result) {
+        if (!$result) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -73,9 +78,24 @@ class UtilisateurRepository
         return $result[0]['nomCreateur'];
     }
 
-    public function ajoutProd($idModele){
+
+    public function getUser($login): Utilisateur
+    {
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "SELECT * FROM utilisateur where login = :loginTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'loginTag' => $login
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetchAll();
+        return new Utilisateur($result[0]['nomCreateur'],$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
+    }
+
+    public function ajoutProd($idModele)
+    {
         session_start();
-        $pdoStatement = DatabaseConnection::getPdo();   
+        $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
@@ -84,7 +104,7 @@ class UtilisateurRepository
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
         $requete = "Select idPanier from Panier where idUtilisateur = :idUtilisateur";
-        $pdoStatement = DatabaseConnection::getPdo();   
+        $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'idUtilisateur' => $result[0]['idUtilisateur']
@@ -92,21 +112,23 @@ class UtilisateurRepository
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
         $requete = "INSERT INTO LigneCommande (idPanier, idModele) VALUES (:idPanier, :idModele)";
-        $pdoStatement = DatabaseConnection::getPdo();   
+        $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'idPanier' => $result[0]['idPanier'],
-            'idModele' => $idModele,    );
+            'idModele' => $idModele,);
         $pdoStatement->execute($values);
-        
+
     }
-    public function suprProd($idModele){
+
+    public function suprProd($idModele)
+    {
         session_start();
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT idUtilisateur FROM utilisateur WHERE login= :loginTag";
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
-            'loginTag'=>$_SESSION['login']
+            'loginTag' => $_SESSION['login']
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
@@ -132,13 +154,14 @@ class UtilisateurRepository
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'idPanier' => $result[0]['idPanier'],
-            'idModele' => $idModele,     );
+            'idModele' => $idModele,);
         $pdoStatement->execute($values);
 
     }
 
-    public static function getProdPanier():array{
-        if(isset($_SESSION['login'])){
+    public static function getProdPanier(): array
+    {
+        if (isset($_SESSION['login'])) {
             $pdoStatement = DatabaseConnection::getPdo();
             $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
             $pdoStatement = $pdoStatement->prepare($requete);
@@ -189,10 +212,11 @@ class UtilisateurRepository
         }
         return [];
 
-        
+
     }
 
-    public static function getSumPanier():int{
+    public static function getSumPanier(): int
+    {
         $sql = "SELECT SUM(m.prix) as total FROM Modele m JOIN LigneCommande l ON l.idModele = m.idModele JOIN Panier p ON p.idPanier = l.idPanier JOIN utilisateur u on p.idUtilisateur = u.idUtilisateur WHERE u.login  = :login";
         $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($sql);
