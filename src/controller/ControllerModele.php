@@ -51,6 +51,7 @@ class ControllerModele
 
     public static function created()
     {
+        $modeles = (new ModeleRepository())->selectAll();
 
         if (isset($_FILES['image'])) {
             $img_name = $_FILES['image']['name'];
@@ -60,7 +61,8 @@ class ControllerModele
 
             if ($error === 0) {
                 if ($img_size > 12500000) {
-                    self::readAll();
+                    self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+                        , "cheminVueBody" => "Accueil/readAll.php", "message" => "Image trop lourde"]);
                 } else {
                     $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
                     $img_ex_lc = strtolower($img_ex);
@@ -73,17 +75,20 @@ class ControllerModele
                         move_uploaded_file($tmp_name, $img_path);
                         $modele = new Modele(0, $_POST['paire'], $_POST['prix'], $_POST['createur'], 'frontController.php?action=afficheImage&controller=image&idImage=' . $new_img_name, 39, 45, $_POST['genre'], $_POST["quantity"]);
                         (new ModeleRepository())->createShoe($modele);
-                        self::afficheVue('view.php', ["pagetitle" => "Connectez-vous"
-                            , "cheminVueBody" => "Produit/testAffichageImage.php"]);
+                        self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+                            , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit ajouté avec succès"]);
                     } else {
-                        self::readAll();
+                        self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+                            , "cheminVueBody" => "Accueil/readAll.php", "message" => "Erreur d'ajout du produit"]);
                     }
                 }
             } else {
-                self::readAll();
+                self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+                    , "cheminVueBody" => "Accueil/readAll.php", "message" => "Erreur lors de la lecture de l'image"]);
             }
         } else {
-            self::readAll();
+            self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+            , "cheminVueBody" => "Accueil/readAll.php", "message" => "Erreur lors de l'ajout de l'ajout du produit (image)"]);
         }
 
 
@@ -107,6 +112,7 @@ class ControllerModele
 
     public static function addProduitPanier()
     {
+        $modeles = (new ModeleRepository())->selectAll();
         if (isset($_SESSION['login'])) {
             $idModele = $_GET['idmodele'];
             (new UtilisateurRepository())->ajoutProd($idModele);
@@ -124,7 +130,8 @@ class ControllerModele
                 $panier[] = $idModele;
                 setcookie('panier', serialize($panier), time() + 3600);
             }
-            ControllerModele::readAll();
+            self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+                , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit ajouté au panier avec succès !"]);
         }
     }
 

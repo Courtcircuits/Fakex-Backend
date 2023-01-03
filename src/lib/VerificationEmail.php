@@ -12,8 +12,8 @@ class VerificationEmail
         $loginURL = rawurlencode($user->getLogin());
         $nonce = rawurlencode($user->getNonce());
         $absoluteURL = Conf::getAbsoluteURL();
+        var_dump($absoluteURL);
         $url = "$absoluteURL?action=validerEmail&controller=utilisateur&login=$loginURL&nonce=$nonce";
-        
         $headers[] = 'MIME-Version: 1.0';
         $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 

@@ -1,5 +1,16 @@
 <?php
 namespace App\Fakex\config;
+
+use App\Fakex\model\Repository\DatabaseConnection;
+
+/**
+ * Cette Classe stocke les informations importantes a stocker pour la connexion avec une base de données
+ *
+ * <p>
+ * Elle est directment connecté avec la classe {@link DatabaseConnection}
+ * </p>
+ *
+ */
 class Conf {
 
     static private array $databases = array(
@@ -40,7 +51,7 @@ class Conf {
 
     //a changer pour le projet
     static public function getAbsoluteURL() : string {
-        return "https://webinfo.iutmontp.univ-montp2.fr/~radulescut/backend/web/frontController.php";
+        return "https://localhost/devWeb/backend/web/frontController.php";
     }
 
 }

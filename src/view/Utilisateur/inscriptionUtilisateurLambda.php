@@ -1,10 +1,10 @@
 <div id="connection">
     <form method="GET" action="frontController.php">
         <fieldset>
-            <legend>Inscription créateur</legend>
+            <legend>Inscription utilisateur</legend>
             <hr>
 
-            <input type='hidden' name='action' value='createdCreateur'>
+            <input type='hidden' name='action' value='createdUtilisateurLambda'>
             <input type='hidden' name='controller' value='utilisateur'>
 
             <?php

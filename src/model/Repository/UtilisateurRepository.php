@@ -12,7 +12,8 @@ class UtilisateurRepository
 {
     public function addUtilisateur(Utilisateur $creator)
     {
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur, mailToValidate, nonce) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login, :mailToValidate, :nonce)");
+        $pdoStatement = DatabaseConnection::getPdo()->prepare
+        ("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur, mailToValidate, nonce) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login, :mailToValidate, :nonce)");
         $pdoStatement->execute([
             "login" => $creator->getLogin(),
             "password" => $creator->getPassword(),
@@ -39,6 +40,18 @@ class UtilisateurRepository
             "idUtilisateur" => $creator->getIdUtilisateur()
         ]);
 
+<<<<<<< HEAD
+=======
+    }
+    public static function deleteUtilisateur($idUtilisateur){
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("DELETE FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
+        $pdoStatement->execute([
+            "idUtilisateur" => $idUtilisateur
+        ]);
+    }
+    public static function updateUtilisateur(Utilisateur $creator){
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET  " );
+>>>>>>> f0de7001d1d4f05390a504e722a4bd2c4c310b80
 
     }
 
@@ -92,7 +105,7 @@ class UtilisateurRepository
     }
 
 
-    public function getUser($login): Utilisateur
+    public function getUser($login): Utilisateur|null
     {
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM utilisateur where login = :loginTag";
@@ -102,8 +115,16 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
+<<<<<<< HEAD
         return new Utilisateur(1, $result[0]['nom'], $result[0]['prenom'], $result[0]['login'], $result[0]['password'], $result[0]['mail'], $result[0]['mailToValidate'], $result[0]['nonce']);
+=======
+        if (!$result) {
+            return null;
+        }
+        return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
+>>>>>>> f0de7001d1d4f05390a504e722a4bd2c4c310b80
     }
+
 
     public function ajoutProd($idModele)
     {

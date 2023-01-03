@@ -12,9 +12,8 @@
             <input type="password" name="password" id="password_id" placeholder="Mot de passe" required/>
 
             <p>Vous n'avez pas de compte ? <a
-                href="frontController.php?action=inscriptionCreateur&controller=utilisateur">Inscrivez vous</a>
+                href="frontController.php?action=inscriptionUtilisateurLambda&controller=utilisateur">Inscrivez vous</a>
             </p>
-
             <input type="submit" value="Se connecter"/>
 
 
