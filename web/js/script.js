@@ -33,26 +33,29 @@ function parse(url, add) {
 
 for (let i = 0; i < sizes.length; i++) {
     sizes[i].addEventListener("mousedown", () => {
+        document.getElementById("submitprod").disabled = false;
         if (!sizes[i].classList.contains("disabled")) {
             for (let k = 0; k < sizes.length; k++) {
                 sizes[k].classList.remove("selected");
             }
             sizes[i].classList.add("selected");
-            document.getElementById("addcart").href = parse(document.getElementById("addcart").href, sizes[i].innerText);
+            document.getElementById("sizeselector").value = sizes[i].innerText;
         }
-
 
     })
 }
 
-function parseURL(url) {
+function parseURL(url,size) {
     let toreturn = "";
     let i = 0;
-    while (url[i] !== "?" && i < url.length) {
+    while (url[i] !== "&" && i < url.length) {
         toreturn += url[i];
         i++;
     }
-    return toreturn;
+    if(url.length> i+6){
+        toreturn += url.substring(i+6);
+    }
+    return toreturn + size;
 }
 
 function getRecommandations(pattern) {

@@ -12,28 +12,53 @@
             <th>Total</th>
         </tr>
         <?php
+
         use App\Fakex\model\Repository\ModeleRepository;
         use App\Fakex\model\Repository\UtilisateurRepository;
-        
-        if(isset($_SESSION['login'])){
+
+        if (isset($_SESSION['login'])) {
             $panier = UtilisateurRepository::getProdPanier();
-        }else{
+            $total = 0;
+            foreach ($panier as $produit) {
+                $total += $produit["prix"] * $produit["quantity"];
+                echo '<tr>
+            <td>' . $produit["nom"] . '</td>
+            <td>' . $produit["prix"]. '</td>
+            <td>' . $produit["taille"] . '</td>
+            <td>' . $produit["quantity"] . '</td>
+            <td>' . $produit["prix"] * $produit["quantity"] . '</td>
+        </tr>';
+            }
+        } else {
             $modeles = unserialize($_COOKIE['panier']);
-            foreach($modeles as $elt){
-                $panier[] = (new ModeleRepository())->selectOne(intval($elt));
+            foreach ($modeles as $elt) {
+                if ($elt != "") {
+                    $elt = explode(";", $elt);
+                    if (count($elt) < 2) {
+                        $elt[1] = "40";
+                    }
+                    if (count($elt) < 3) {
+                        $elt[2] = "1";
+                    }
+                    $panier[] = ["modele" => (new ModeleRepository())->selectOne(intval($elt[0])),
+                        "size" => $elt[1],
+                        "quantity" => $elt[2]
+                    ];
+                }
+            }
+            $total = 0;
+            foreach ($panier as $produit) {
+                $total += $produit["modele"]->getPrix() * $produit["modele"]->getQuantity();
+                echo '<tr>
+            <td>' . $produit["modele"]->getNom() . '</td>
+            <td>' . $produit["modele"]->getPrix() . '</td>
+            <td>' . $produit["size"] . '</td>
+            <td>' . $produit["quantity"] . '</td>
+            <td>' . $produit["modele"]->getPrix() * $produit["quantity"] . '</td>
+        </tr>';
             }
         }
-        $total = 0;
-        foreach ($panier as $produit) {
-            $total += $produit->getPrix() * $produit->getQuantity();
-            echo '<tr>
-            <td>' . $produit->getNom() . '</td>
-            <td>' . $produit->getPrix() . '</td>
-            <td>' . $produit->getMinSize() . '</td>
-            <td>' . $produit->getQuantity() . '</td>
-            <td>' . $produit->getPrix() * $produit->getQuantity() . '</td>
-        </tr>';
-        }
+
         ?>
     </table>
 

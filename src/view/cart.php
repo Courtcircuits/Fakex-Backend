@@ -18,20 +18,20 @@
         use App\Fakex\model\Repository\UtilisateurRepository;
 
         if (!isset($_SESSION['login'])) {
-            if(!isset($_COOKIE['panier'])){
+            if (!isset($_COOKIE['panier'])) {
                 echo '<div id="empty-cart" class="contain">
                 <h2>Votre panier est vide</h2>
                 <p>Connectez-vous pour accéder à votre panier</p>';
-            }else if(empty(unserialize($_COOKIE['panier']))){
+            } else if (empty(unserialize($_COOKIE['panier']))) {
                 echo '<div id="empty-cart" class="contain">
                 <h2>Votre panier est vide</h2>
                 <p>Connectez-vous pour accéder à votre panier</p>
             </div>';
-            }else{
+            } else {
                 $panier = unserialize($_COOKIE['panier']);
 
                 $modeles = [];
-                foreach($panier as $elt){
+                foreach ($panier as $elt) {
                     $modeles[] = (new ModeleRepository())->selectOne(intval($elt));
                 }
                 foreach ($modeles as $modele) {
@@ -61,27 +61,20 @@
             }
         } else {
             $modeles = UtilisateurRepository::getProdPanier();
-            if (empty($modeles)) {
-                echo '<div id="empty-cart" class="contain">
-                <h3>Votre panier est vide</h3>
-                <p>Vous n\'avez pas encore ajouté d\'article à votre panier.</p>
-                <a href="frontController.php?action=readAll&controller=modele">Découvrez nos produits</a>
-            </div>';
-            } else {
-                foreach ($modeles as $modele) {
-                    echo '
+            foreach ($modeles as $modele) {
+                echo '
                 <div id="content-cart">
-                <img src="' . $modele->getImageUrl() . '"/>
+                <img src="' . $modele["imageUrl"] . '"/>
             <div id="legend" class="contain">
-                <h3>' . $modele->getNom() . '</h3>
+                <h3>' . $modele["nom"] . '</h3>
                 <div>
                     <div>
-                        <p>' . $modele->getMaxSize() . ' EU - 9 US - ' . $modele->getPrix() . '€</p>
+                        <p>' . $modele["taille"] . ' EU - ' . $modele["quantity"] . ' modeles</p>
                     </div>
                     <div>
-                        <p>' . $modele->getPrix() . '€</p>
+                        <p>' . $modele["prix"]*$modele["quantity"] . '€</p>
                         <span>
-                            <a href ="frontController.php?action=suprProduitPanier&controller=modele&idmodele=' . $modele->getIdModele() . '" ><p>Supprimer</p></a>
+                            <a href ="frontController.php?action=suprProduitPanier&controller=modele&idmodele=' . $modele["idModele"] . '" ><p>Supprimer</p></a>
                             <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M24.7754 9.78428L23.3754 8.38428L16.7754 14.9843L10.1754 8.38428L8.77539 9.78428L15.3754 16.3843L8.77539 22.9843L10.1754 24.3843L16.7754 17.7843L23.3754 24.3843L24.7754 22.9843L18.1754 16.3843L24.7754 9.78428Z" fill="black"/>
                             </svg>
@@ -91,7 +84,6 @@
             </div>
                 </div>
             ';
-                }
             }
         }
 
@@ -120,4 +112,5 @@
         ?>
 
     </div>
+</div>
 </div>

@@ -38,7 +38,7 @@ class UtilisateurRepository
         $pdoStatement->execute([
             "idUtilisateur" => $creator->getIdUtilisateur()
         ]);
-    
+
 
     }
 
@@ -102,12 +102,12 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-        return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
+        return new Utilisateur(1, $result[0]['nom'], $result[0]['prenom'], $result[0]['login'], $result[0]['password'], $result[0]['mail'], $result[0]['mailToValidate'], $result[0]['nonce']);
     }
 
     public function ajoutProd($idModele)
     {
-        if(!isset($_SESSION)){
+        if (!isset($_SESSION)) {
             session_start();
         }
         $pdoStatement = DatabaseConnection::getPdo();
@@ -126,19 +126,24 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-        $requete = "INSERT INTO LigneCommande (idPanier, idModele) VALUES (:idPanier, :idModele)";
+        $requete = "INSERT INTO LigneCommande (idPanier, idModele, quantity, taille) VALUES (:idPanier, :idModele, :quantity, :taille)";
         $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($requete);
         $values = array(
             'idPanier' => $result[0]['idPanier'],
-            'idModele' => $idModele,);
+            'idModele' => $idModele,
+            'quantity' => $_GET['quantity'],
+            'taille' => $_GET['size']
+        );
         $pdoStatement->execute($values);
 
     }
 
     public function suprProd($idModele)
     {
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT idUtilisateur FROM utilisateur WHERE login= :loginTag";
         $pdoStatement = $pdoStatement->prepare($requete);
@@ -178,56 +183,19 @@ class UtilisateurRepository
     {
         if (isset($_SESSION['login'])) {
             $pdoStatement = DatabaseConnection::getPdo();
-            $requete = "SELECT idUtilisateur FROM utilisateur where login = :loginTag";
-            $pdoStatement = $pdoStatement->prepare($requete);
-
-            $values = array(
-                'loginTag' => $_SESSION['login']
-            );
-            $pdoStatement->execute($values);
-            $result = $pdoStatement->fetchAll();
-            $requete = "Select idPanier from Panier where idUtilisateur = :idUtilisateur";
-            $pdoStatement = DatabaseConnection::getPdo();
+            $requete = "SELECT m.idModele, m.nom, m.prix, m.imageUrl, l.quantity, l.taille FROM LigneCommande l
+JOIN Modele m ON m.idModele=l.idModele
+JOIN Panier p ON p.idPanier = l.idPanier
+JOIN utilisateur u ON p.idUtilisateur = u.idUtilisateur
+WHERE u.login=:idUtilisateur";
             $pdoStatement = $pdoStatement->prepare($requete);
             $values = array(
-                'idUtilisateur' => $result[0]['idUtilisateur']
+                'idUtilisateur' => $_SESSION['login']
             );
             $pdoStatement->execute($values);
-            $result = $pdoStatement->fetchAll();
-            $requete = "Select idModele from LigneCommande where idPanier = :idPanier";
-            $pdoStatement = DatabaseConnection::getPdo();
-            $pdoStatement = $pdoStatement->prepare($requete);
-            $values = array(
-                'idPanier' => $result[0]['idPanier']
-            );
-            $pdoStatement->execute($values);
-            $liste = array();
-            foreach ($pdoStatement as $listResult) {
-                $requete = "Select * from Modele where idModele = :idModele";
-                $pdoStatement = DatabaseConnection::getPdo();
-                $pdoStatement = $pdoStatement->prepare($requete);
-                $values = array(
-                    'idModele' => $listResult['idModele']
-                );
-                $pdoStatement->execute($values);
-                $result = $pdoStatement->fetchAll();
-                $liste[] = new Modele(
-                    $result[0]['idModele'],
-                    $result[0]['nom'],
-                    $result[0]['prix'],
-                    $result[0]['creator'],
-                    $result[0]['imageUrl'],
-                    $result[0]['minSize'],
-                    $result[0]['maxSize'],
-                    $result[0]['genre'],
-                    $result[0]['quantity']
-                );
-            }
-            return $liste;
+            return $pdoStatement->fetchAll();
         }
         return [];
-
-
     }
 
     public static function getSumPanier(): int
@@ -243,12 +211,14 @@ class UtilisateurRepository
         return $result[0]['total'];
     }
 
-    public function checkNonce($login,$nonce):bool{
+    public function checkNonce($login, $nonce): bool
+    {
         return $this->getUser($login)->getNonce() == $nonce;
     }
 
 
-    public function validerEmail($login){
+    public function validerEmail($login)
+    {
         $sql = "UPDATE utilisateur SET emailValide = 1 WHERE login = :login";
         $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($sql);
@@ -258,7 +228,8 @@ class UtilisateurRepository
         $pdoStatement->execute($values);
     }
 
-    public function delete($login){
+    public function delete($login)
+    {
         $sql = "DELETE FROM utilisateur WHERE login = :login";
         $pdoStatement = DatabaseConnection::getPdo();
         $pdoStatement = $pdoStatement->prepare($sql);
@@ -268,7 +239,6 @@ class UtilisateurRepository
         $pdoStatement->execute($values);
     }
 }
-
 
 
 ?>

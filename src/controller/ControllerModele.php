@@ -117,7 +117,7 @@ class ControllerModele
             //add modele to $_COOKIE['panier']
             if (isset($_COOKIE['panier'])) {
                 $panier = unserialize($_COOKIE['panier']);
-                $panier[] = $idModele;
+                $panier[] = $idModele.";".$_GET['size'].";".$_GET['quantity'];
                 setcookie('panier', serialize($panier), time() + 3600);
             } else {
                 $panier = array();
