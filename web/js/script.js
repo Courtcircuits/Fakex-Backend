@@ -65,7 +65,7 @@ function getRecommandations(pattern) {
         .then(data => {
             console.log(data);
             for (let i = 0; i < data.length; i++) {
-                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\""+ url + "?action=readProduct&controller=modele&id="+data[i].id +"\">" + data[i].nom+ "</a></li>";
+                document.querySelector("#suggestions ol").innerHTML += "<li><a href=\""+ url + "?action=readSingleProduct&controller=modele&id="+data[i].id +"\">" + data[i].nom+ "</a></li>";
             }
         });
 }
