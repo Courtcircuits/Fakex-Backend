@@ -41,6 +41,16 @@ class UtilisateurRepository
         ]);
 
     }
+    public static function deleteUtilisateur($idUtilisateur){
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("DELETE FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
+        $pdoStatement->execute([
+            "idUtilisateur" => $idUtilisateur
+        ]);
+    }
+    public static function updateUtilisateur(Utilisateur $creator){
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET  " );
+
+    }
 
     public function checkCreateur($login, $pwd): bool
     {
