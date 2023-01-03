@@ -103,6 +103,35 @@ class ModeleRepository
         return $modele;
     }
 
+    public function deleteShoe(Modele $shoe){
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "DELETE FROM Modele WHERE idModele = :idTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'idTag' => $shoe->getIdModele()
+        );
+        $pdoStatement->execute($values);
+    }
+
+    public function updateShoe(Modele $shoe){
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "Update Modele SET nom = :nomTag, prix = :prixTag, creator = :creatorTag, imageUrl = :imageUrl, minSize = :minSizeTag, maxSize = :maxSizeTag, genre = :genreTag, quantity = :quantityTag WHERE idModele = :idTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'idTag' => $shoe->getIdModele(),
+            'nomTag' => $shoe->getNom(),
+            'prixTag' => $shoe->getPrix(),
+            'creatorTag' => $shoe->getCreator(),
+            'imageUrl' => $shoe->getImageUrl(),
+            'minSizeTag' => $shoe->getMinSize(),
+            'maxSizeTag' => $shoe->getMaxSize(),
+            'genreTag' => $shoe->getGenre(),
+            'quantityTag' => $shoe->getQuantity()
+        );
+        $pdoStatement->execute($values);
+        
+    }
+
     public function createShoe(Modele $shoe){
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "INSERT INTO Modele (idModele, nom, prix, creator, imageUrl, minSize,maxSize, genre, quantity) 
