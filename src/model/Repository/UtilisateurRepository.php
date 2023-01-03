@@ -48,8 +48,18 @@ class UtilisateurRepository
         ]);
     }
     public static function updateUtilisateur(Utilisateur $creator){
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET  " );
-
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET login = :login,password = :password,mail = :email,nom = :nom,prenom=:prenom,creteur = :createur,nomCreateur=:nomCreateur, mailToValidate=:mailToValidate,nonce=:nonce WHERE idUtilisateur=:idUtilisateur" );
+        $pdoStatement->execute([
+            "idutilisateur" => $creator->getidUtilisateur(),
+            "login" => $creator->getLogin(),
+            "password" => $creator->getPassword(),
+            "createur" => $creator->getCreator(),
+            "email" => $creator->getEmail(),
+            "nom" => $creator->getNom(),
+            "prenom" => $creator->getPrenom(),
+            "mailToValidate" => $creator->getEmailToValidate(),
+            "nonce" => $creator->getNonce()
+        ]);
     }
 
     public function checkCreateur($login, $pwd): bool
@@ -200,11 +210,7 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-        //DELETE FROM LigneCommande WHERE
-        //LigneCommandeID = (SELECT MIN(LigneCommandeID) FROM LigneCommande
-        //	WHERE idPanier = 8 AND idModele = 10)
-        //AND idPanier = 8
-        //AND idModele = 10;
+
         $requete = "DELETE FROM LigneCommande WHERE LigneCommandeID = 
                                 (SELECT MIN(LigneCommandeID) FROM LigneCommande
         	WHERE idPanier = :idPanier AND idModele = :idModele)

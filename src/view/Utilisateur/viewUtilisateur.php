@@ -10,7 +10,17 @@ use App\Fakex\model\Repository\UtilisateurRepository;
     <h2>
         Profil de <?php echo $utilisateur->getPrenom() . " " . $utilisateur->getNom(); ?>
     </h2>
-    <!-- create a table to display the products (nom, taille max, taille min, prix, quantités, genre) -->
+
+    <?php
+    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+        // L'utilisateur est connecté
+        echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li><p> <h2>Login:</h2>  <a>' . $_SESSION['login'] . '</a</p>';
+    } else {
+        // L'utilisateur n'est pas connecté
+        echo '<li><a href="frontController.php?action=connexionUtilisateur&controller=utilisateur">Log in</a></li>';
+    }
+    ?>
+
     <table>
         <tr>
             <th>Nom</th>
