@@ -63,6 +63,11 @@ class ControllerUtilisateur{
         ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php"]);
     }
 
+    public static function inscriptionUtilisateurLambda(){
+        self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
+        ,"cheminVueBody"=>"Utilisateur/inscriptionUtilisateurLambda.php"]);
+    }
+
     public static function affichagePanier(){
         self::afficheVue('view.php', ["pagetitle"=>"Panier",
             "cheminVueBody"=>"Utilisateur/panierUtilisateur.php"]);
@@ -73,10 +78,17 @@ class ControllerUtilisateur{
             "cheminVueBody"=>"Utilisateur/paiementUtilisateur.php"]);
     }
 
-    public static function created(){
+    public static function createdCreateur(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
 
         $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
+        VerificationEmail::envoiEmailValidation($user);
+    }
+
+    public static function createdUtilisateurLambda(){
+        $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
+
+        $user = new Utilisateur(0,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
         VerificationEmail::envoiEmailValidation($user);
     }
 
