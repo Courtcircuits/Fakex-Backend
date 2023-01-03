@@ -19,16 +19,18 @@ use App\Fakex\model\Repository\UtilisateurRepository;
             <th>Prix</th>
             <th>Quantité</th>
             <th>Genre</th>
+            <th>Delete</th>
         </tr>
         <?php
         foreach ($products as $product) {
             echo '<tr>
-            <td>' . $product->getNom() . '</td>
+            <td><a href="frontController.php?action=update&controller=modele&id='.$product->getIdModele().'">' . $product->getNom() . '</a></td>
             <td>' . $product->getMaxSize() . '</td>
             <td>' . $product->getMinSize() . '</td>
             <td>' . $product->getPrix() . '</td>
             <td>' . $product->getQuantity() . '</td>
             <td>' . $product->getGenre() . '</td>
+            <td><a href="frontController.php?action=delete&controller=modele&id=' . $product->getIdModele() . '">x</a></td>
         </tr>';
         }
         ?>

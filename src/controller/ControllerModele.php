@@ -169,6 +169,29 @@ class ControllerModele
         }
     }
 
+    public static function update(){
+        $modele = (new ModeleRepository())->selectOne($_GET['id']);
+        self::afficheVue('view.php', ['modele' => $modele,
+            "pagetitle" => $modele->getNom() . " BY " . $modele->getCreator(),
+            "cheminVueBody" => "Produit/updateProduit.php"]);
+    }
+
+    public static function updated(){
+        (new ModeleRepository())->updateShoe(new Modele($_POST["id"], $_POST["nom"], $_POST["prix"], $_POST["createur"], $_POST["imageUrl"],$_POST["minsize"], $_POST["maxsize"], $_POST["genre"], $_POST["quantity"] ));
+        $modeles = (new ModeleRepository())->selectAll();
+        self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+            , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit modifié avec succès !"]);
+    }
+
+    public static function delete(){
+        // convert id from string to int
+    
+        (new ModeleRepository())->deleteShoe(intval($_GET['id']));
+        $modeles = (new ModeleRepository())->selectAll();
+        self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
+            , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit supprimé avec succès !"]);
+    }
+
     public static function recommand()
     {
         $recommandations = (new ModeleRepository())->recommandShoe($_GET['search']);
