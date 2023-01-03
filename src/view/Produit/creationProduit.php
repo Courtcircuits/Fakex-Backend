@@ -23,6 +23,13 @@
 
                 <label for="quantity">Quantities : </label>
                 <input type="number" name="quantity" required />
+
+                <label for="maxsize">Max size : </label>
+                <input type="number" name="maxsize" required />
+
+                <label for="minsize">Min size : </label>
+                <input type="number" name="minsize" required />
+
                 <input type="submit" value="Envoyer"/>
         </fieldset>
     </form>
