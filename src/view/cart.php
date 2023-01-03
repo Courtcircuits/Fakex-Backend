@@ -18,7 +18,11 @@
         use App\Fakex\model\Repository\UtilisateurRepository;
 
         if (!isset($_SESSION['login'])) {
-            if(empty(unserialize($_COOKIE['panier']))){
+            if(!isset($_COOKIE['panier'])){
+                echo '<div id="empty-cart" class="contain">
+                <h2>Votre panier est vide</h2>
+                <p>Connectez-vous pour accéder à votre panier</p>';
+            }else if(empty(unserialize($_COOKIE['panier']))){
                 echo '<div id="empty-cart" class="contain">
                 <h2>Votre panier est vide</h2>
                 <p>Connectez-vous pour accéder à votre panier</p>
