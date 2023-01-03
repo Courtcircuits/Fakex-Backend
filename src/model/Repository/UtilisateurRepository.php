@@ -40,8 +40,6 @@ class UtilisateurRepository
             "idUtilisateur" => $creator->getIdUtilisateur()
         ]);
 
-<<<<<<< HEAD
-=======
     }
     public static function deleteUtilisateur($idUtilisateur){
         $pdoStatement = DatabaseConnection::getPdo()->prepare("DELETE FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
@@ -51,7 +49,6 @@ class UtilisateurRepository
     }
     public static function updateUtilisateur(Utilisateur $creator){
         $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET  " );
->>>>>>> f0de7001d1d4f05390a504e722a4bd2c4c310b80
 
     }
 
@@ -115,14 +112,10 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
-<<<<<<< HEAD
-        return new Utilisateur(1, $result[0]['nom'], $result[0]['prenom'], $result[0]['login'], $result[0]['password'], $result[0]['mail'], $result[0]['mailToValidate'], $result[0]['nonce']);
-=======
         if (!$result) {
             return null;
         }
         return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
->>>>>>> f0de7001d1d4f05390a504e722a4bd2c4c310b80
     }
 
 
