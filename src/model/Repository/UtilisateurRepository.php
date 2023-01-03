@@ -92,7 +92,7 @@ class UtilisateurRepository
     }
 
 
-    public function getUser($login): Utilisateur
+    public function getUser($login): Utilisateur|null
     {
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM utilisateur where login = :loginTag";
@@ -102,8 +102,12 @@ class UtilisateurRepository
         );
         $pdoStatement->execute($values);
         $result = $pdoStatement->fetchAll();
+        if (!$result) {
+            return null;
+        }
         return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
     }
+
 
     public function ajoutProd($idModele)
     {

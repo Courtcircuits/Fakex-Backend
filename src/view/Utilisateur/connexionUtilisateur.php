@@ -14,7 +14,6 @@
             <p>Vous n'avez pas de compte ? <a
                 href="frontController.php?action=inscriptionUtilisateurLambda&controller=utilisateur">Inscrivez vous</a>
             </p>
-
             <input type="submit" value="Se connecter"/>
 
 

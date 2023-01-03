@@ -81,15 +81,27 @@ class ControllerUtilisateur{
     public static function createdCreateur(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
 
-        $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
-        VerificationEmail::envoiEmailValidation($user);
+        if ((new UtilisateurRepository)->getUser($_GET['login']) != null) {
+            self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
+            ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php","message"=>"Login déjà utilisé"]);
+        }
+        else{
+            $user = new Utilisateur(1,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
+            VerificationEmail::envoiEmailValidation($user);
+        }
     }
 
     public static function createdUtilisateurLambda(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
-
-        $user = new Utilisateur(0,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
-        VerificationEmail::envoiEmailValidation($user);
+        if((new UtilisateurRepository)->getUser($_GET['login'])!=null){
+            self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
+            ,"cheminVueBody"=>"Utilisateur/inscriptionUtilisateurLambda.php","message"=>"Login déjà utilisé"]);
+        }
+        else{
+            $user = new Utilisateur(0,$_GET['nom'],$_GET['prenom'],$_GET['login'],$hash,"",$_GET['email'],MotDePasse::generateString(32));
+            VerificationEmail::envoiEmailValidation($user);
+        }
+        
     }
 
     public static function validerEmail(){

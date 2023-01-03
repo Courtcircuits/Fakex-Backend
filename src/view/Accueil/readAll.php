@@ -1,3 +1,8 @@
+<?php
+    if (!empty($message)) {
+        echo "<p class='flash'>$message</p>";
+    }
+    ?>
 <div id="hero">
     <main>
         <div id="slider">
@@ -58,4 +63,5 @@
     }
 
 ?>
+ 
 </div>
