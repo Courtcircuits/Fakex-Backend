@@ -16,7 +16,14 @@
             }else{
                 echo "frontController.php?action=connexionCreateur&controller=utilisateur";
             }
-            ?>">Creators</a></li>
+            ?>"><?php
+                    if(isset($_SESSION['login'])){
+                        echo "Add Shoe";
+                    }else{
+                        echo "Creators";
+                    }
+            ?>
+            </a></li>
             <li><a href="frontController.php?action=readMen&controller=modele">Men</a></li>
             <li><a href="frontController.php?action=readWomen&controller=modele">Women</a></li>
             <?php
@@ -54,7 +61,7 @@
                 require __DIR__."/../../web/img/magnify.svg";
                 ?>
             </a></li>
-        <li><a href="fav">
+        <li><a href="frontController.php?action=viewUtilisateur&controller=utilisateur">
                 <?php
                 require __DIR__."/../../web/img/heart.svg";
                 ?>

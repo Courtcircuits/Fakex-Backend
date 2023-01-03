@@ -101,9 +101,10 @@
         <?php
         if (!isset($_SESSION['login'])) {
             echo '<div id="summary" class="contain">
-<a href="frontController.php?action=paiement&controller=utilisateur">PAIEMENT</a>
+<a href="frontController.php?action=paiement&controller=utilisateur">PAIEMENT </a>
             <a href="frontController.php?action=affichagePanier&controller=utilisateur">ALLER AU PANIER</a>
 </div>
+
 ';
         } else if (empty($modeles)) {
 

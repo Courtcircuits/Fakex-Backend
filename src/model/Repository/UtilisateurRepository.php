@@ -12,7 +12,8 @@ class UtilisateurRepository
 {
     public function addUtilisateur(Utilisateur $creator)
     {
-        $pdoStatement = DatabaseConnection::getPdo()->prepare("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur, mailToValidate, nonce) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login, :mailToValidate, :nonce)");
+        $pdoStatement = DatabaseConnection::getPdo()->prepare
+        ("INSERT INTO utilisateur(login, password,mail,nom,prenom, createur, nomCreateur, mailToValidate, nonce) VALUES (:login, :password, :email, :nom, :prenom, :createur, :login, :mailToValidate, :nonce)");
         $pdoStatement->execute([
             "login" => $creator->getLogin(),
             "password" => $creator->getPassword(),
@@ -38,7 +39,6 @@ class UtilisateurRepository
         $pdoStatement->execute([
             "idUtilisateur" => $creator->getIdUtilisateur()
         ]);
-    
 
     }
 
