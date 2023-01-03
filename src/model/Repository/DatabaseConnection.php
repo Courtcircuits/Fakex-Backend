@@ -2,6 +2,14 @@
 namespace App\Fakex\model\Repository;
 use App\Fakex\config\Conf;
 use PDO;
+
+/**
+ * La classe <strong> Database Connection </strong> instantie et configure un {@link PDO}
+ * <p>
+ * Cette classe possède le SingleTon pattern
+ * Ce qui permet l'utilisation d'une seule connexion a la base de données.
+ * </p>
+ */
 class DatabaseConnection{
 	private static ?DatabaseConnection $instance = null;
 

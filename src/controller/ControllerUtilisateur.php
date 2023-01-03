@@ -77,7 +77,10 @@ class ControllerUtilisateur{
         self::afficheVue("view.php", ["pagetitle"=>"Paiement",
             "cheminVueBody"=>"Utilisateur/paiementUtilisateur.php"]);
     }
-
+    public static function viewUtilisateur(){
+        self::afficheVue("view.php", ["pagetitle"=>"Votre Compte",
+            "cheminVueBody"=>"Utilisateur/viewUtilisateur.php"]);
+    }
     public static function createdCreateur(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
 
