@@ -8,6 +8,11 @@ use App\Fakex\model\Repository\UtilisateurRepository;
 
 class VerificationEmail
 {
+    /**
+     * Envoie un email de confirmation à l'utilisateur
+     * @param Utilisateur $user
+     * @return void
+     */
     public static function envoiEmailValidation(Utilisateur $user):void{
         $loginURL = rawurlencode($user->getLogin());
         $nonce = rawurlencode($user->getNonce());
@@ -25,6 +30,12 @@ class VerificationEmail
         header("Location: https://yopmail.com/?login=doisacaumeiha-9108");
     }
 
+    /**
+     * Vérifie si l'utilisateur a bien cliqué sur le lien de validation
+     * @param string $login
+     * @param string $nonce
+     * @return void
+     */
     public static function traiterEmailValidation(){
         $login =$_GET['login'];
         $nonce = $_GET['nonce'];

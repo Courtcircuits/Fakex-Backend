@@ -10,6 +10,12 @@ use Serializable;
 
 class UtilisateurRepository
 {
+    /**
+     * ajoute un utilisateur à la base de donnée
+     * @param Utilisateur $creator
+     * @return void
+     *
+     */
     public function addUtilisateur(Utilisateur $creator)
     {
         $pdoStatement = DatabaseConnection::getPdo()->prepare
@@ -41,12 +47,24 @@ class UtilisateurRepository
         ]);
 
     }
+
+    /**
+     * supprime un utilisateur de la base de données
+     * @param $idUtilisateur
+     * @return void
+     */
     public static function deleteUtilisateur($idUtilisateur){
         $pdoStatement = DatabaseConnection::getPdo()->prepare("DELETE FROM utilisateur WHERE idUtilisateur = :idUtilisateur");
         $pdoStatement->execute([
             "idUtilisateur" => $idUtilisateur
         ]);
     }
+
+    /**
+     * met à jour un utilisateur dans la base de données
+     * @param Utilisateur $creator
+     * @return void
+     */
     public static function updateUtilisateur(Utilisateur $creator){
         $pdoStatement = DatabaseConnection::getPdo()->prepare("UPDATE utilisateur SET login = :login,password = :password,mail = :email,nom = :nom,prenom=:prenom,creteur = :createur,nomCreateur=:nomCreateur, mailToValidate=:mailToValidate,nonce=:nonce WHERE idUtilisateur=:idUtilisateur" );
         $pdoStatement->execute([
@@ -62,6 +80,12 @@ class UtilisateurRepository
         ]);
     }
 
+
+    /**
+     * vérifie si un utilisateur est un créateur
+     * @param $login
+     * @return Utilisateur
+     */
     public function checkCreateur($login, $pwd): bool
     {
         $pdoStatement = DatabaseConnection::getPdo();
@@ -80,6 +104,11 @@ class UtilisateurRepository
         }
     }
 
+    /**
+     * récupère les produits créés par le créateur
+     * @param $login le nom du créateur
+     * @return array de produits
+     */
     public function getProductCreated($login): array{
         $pdoStatement = DatabaseConnection::getPdo();
         $requete = "SELECT * FROM Modele where creator = :loginTag";
@@ -106,6 +135,12 @@ class UtilisateurRepository
         return $products;
     }
 
+    /**
+     * vérifie si un utilisateur est dans la base de données
+     * @param $login
+     * @param $pwd
+     * @return bool
+     */
     public function checkGlobal($login, $pwd): bool
     {
         $pdoStatement = DatabaseConnection::getPdo();
@@ -124,6 +159,11 @@ class UtilisateurRepository
         }
     }
 
+    /**
+     * récupère le nom de créateur de la base de donnée à aprtir du login
+     * @param $login
+     * @return string : le nom du créateur
+     */
     public function getCreateur($login): string
     {
         $pdoStatement = DatabaseConnection::getPdo();
@@ -138,6 +178,11 @@ class UtilisateurRepository
     }
 
 
+    /**
+     * récupère un utilisateur de la base de données
+     * @param $login
+     * @return Utilisateur
+     */
     public function getUser($login): Utilisateur|null
     {
         $pdoStatement = DatabaseConnection::getPdo();
@@ -154,7 +199,10 @@ class UtilisateurRepository
         return new Utilisateur(1,$result[0]['nom'],$result[0]['prenom'],$result[0]['login'],$result[0]['password'],$result[0]['mail'],$result[0]['mailToValidate'],$result[0]['nonce']);
     }
 
-
+    /**
+     * ajoute un produit au panier dans la base de données
+     * @param $idModele
+     */
     public function ajoutProd($idModele)
     {
         if (!isset($_SESSION)) {
@@ -189,6 +237,11 @@ class UtilisateurRepository
 
     }
 
+    /**
+     * supprime un produit du panier
+     * @param $idModele
+     * @return void
+     */
     public function suprProd($idModele)
     {
         if(!isset($_SESSION)){
@@ -225,6 +278,10 @@ class UtilisateurRepository
 
     }
 
+    /**
+     * récupère le panier de l'utilisateur
+     * @return array
+     */
     public static function getProdPanier(): array
     {
         if (isset($_SESSION['login'])) {
@@ -244,6 +301,10 @@ WHERE u.login=:idUtilisateur";
         return [];
     }
 
+    /**
+     * récupère la somme des prix dans le panier de l'utilisateur
+     * @return int
+     */
     public static function getSumPanier(): int
     {
         $sql = "SELECT SUM(m.prix) as total FROM Modele m JOIN LigneCommande l ON l.idModele = m.idModele JOIN Panier p ON p.idPanier = l.idPanier JOIN utilisateur u on p.idUtilisateur = u.idUtilisateur WHERE u.login  = :login";
@@ -257,12 +318,23 @@ WHERE u.login=:idUtilisateur";
         return $result[0]['total'];
     }
 
+    /**
+     * vérifie le nonce pour vérifier l'adresse email
+     * @param $login
+     * @param $nonce
+     * @return bool
+     */
     public function checkNonce($login, $nonce): bool
     {
         return $this->getUser($login)->getNonce() == $nonce;
     }
 
 
+    /**
+     * Postulat : l'utilisateur a un mail valide
+     * remplace l'emailValide dans la bd par 1 car l'email a été validé
+     * @return void
+     */
     public function validerEmail($login)
     {
         $sql = "UPDATE utilisateur SET emailValide = 1 WHERE login = :login";
@@ -274,6 +346,11 @@ WHERE u.login=:idUtilisateur";
         $pdoStatement->execute($values);
     }
 
+    /**
+     * supprime un utilisateur de la base de données selon son login
+     * @param $login
+     * @return void
+     */
     public function delete($login)
     {
         $sql = "DELETE FROM utilisateur WHERE login = :login";

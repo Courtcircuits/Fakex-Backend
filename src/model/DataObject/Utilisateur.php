@@ -1,5 +1,10 @@
 <?php
 namespace App\Fakex\model\DataObject;
+/**
+ * Cette classe simule un object Utilisateur
+ *
+ *
+ */
 class Utilisateur
 {
     public int $createur;

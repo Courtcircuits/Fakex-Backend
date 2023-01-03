@@ -22,12 +22,18 @@ if(!isset($_SESSION)){
  */
 class ControllerModele
 {
+    /**
+     * affiche une vue selon un chemin et des paramètres qui seront transfomés en variables
+     */
     private static function afficheVue(string $cheminVue, array $parametres = []): void
     {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../view/$cheminVue"; // Charge la vue
     }
 
+    /**
+     * affiche la page d'accueil
+     */
     public static function readAll()
     {
         $modeles = (new ModeleRepository())->selectAll();
@@ -35,6 +41,9 @@ class ControllerModele
             , "cheminVueBody" => "Accueil/readAll.php"]);
     }
 
+    /**
+     * affiche une page avec les chaussures pour les hommes
+     */
     public static function readMen()
     {
         $modeles = (new ModeleRepository())->selectMen();
@@ -42,6 +51,9 @@ class ControllerModele
             , "cheminVueBody" => "Accueil/readAll.php"]);
     }
 
+    /**
+     * affiche une page avec les chaussures pour les femmes
+     */
     public static function readWomen()
     {
         $modeles = (new ModeleRepository())->selectWomen();
@@ -49,6 +61,9 @@ class ControllerModele
             , "cheminVueBody" => "Accueil/readAll.php"]);
     }
 
+    /**
+     * crée une chaussure et l'ajoute à la base de données en fonction des paramètres passés en get
+     */
     public static function created()
     {
         $modeles = (new ModeleRepository())->selectAll();
@@ -101,6 +116,9 @@ class ControllerModele
 
     }
 
+    /**
+     * affiche un formulaire pour créer une chaussure
+     */
     public static function createShoe()
     {
         $createur = (new UtilisateurRepository())->getCreateur($_SESSION['login']);
@@ -109,6 +127,9 @@ class ControllerModele
             , "cheminVueBody" => "Produit/creationProduit.php", "nomCreateur" => $createur]);
     }
 
+    /**
+     * affiche une unique chaussure
+     */
     public static function readSingleProduct()
     {
         $modele = (new ModeleRepository())->selectOne($_GET['id']);
@@ -117,6 +138,9 @@ class ControllerModele
             "cheminVueBody" => "Accueil/readSingleProduct.php"]);
     }
 
+    /**
+     * ajoute un produit au panier et affiche un message confirmant l'ajout
+     */
     public static function addProduitPanier()
     {
         if (isset($_SESSION['login'])) {
@@ -145,7 +169,9 @@ class ControllerModele
                 , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit ajouté au panier avec succès !"]);
         }
     }
-
+    /**
+     * supprime un produit du panier et affiche un message confirmant la suppression
+     */
     public static function suprProduitPanier()
     {
         if(isset($_SESSION['login'])) {
@@ -169,6 +195,10 @@ class ControllerModele
         }
     }
 
+
+    /**
+     * affiche le formulaire de modification d'un produit
+     */
     public static function update(){
         $modele = (new ModeleRepository())->selectOne($_GET['id']);
         self::afficheVue('view.php', ['modele' => $modele,
@@ -176,6 +206,9 @@ class ControllerModele
             "cheminVueBody" => "Produit/updateProduit.php"]);
     }
 
+    /**
+     * modifie un produit et affiche un message confirmant la modification
+     */
     public static function updated(){
         (new ModeleRepository())->updateShoe(new Modele($_POST["id"], $_POST["nom"], $_POST["prix"], $_POST["createur"], $_POST["imageUrl"],$_POST["minsize"], $_POST["maxsize"], $_POST["genre"], $_POST["quantity"] ));
         $modeles = (new ModeleRepository())->selectAll();
@@ -183,6 +216,9 @@ class ControllerModele
             , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit modifié avec succès !"]);
     }
 
+    /**
+     * supprime un produit et affiche un message confirmant la suppression
+     */
     public static function delete(){
         // convert id from string to int
     
@@ -192,6 +228,9 @@ class ControllerModele
             , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit supprimé avec succès !"]);
     }
 
+    /**
+     * recommande une chaussure et envoie un json de cette recommandation en fonction du paramètre search de l'url
+     */
     public static function recommand()
     {
         $recommandations = (new ModeleRepository())->recommandShoe($_GET['search']);
@@ -200,6 +239,9 @@ class ControllerModele
         header("Content-Type: application/json");
     }
 
+    /**
+     * recupere les informations concernant le best seller et retourne un json en fonction du paramètre rank de l'url
+     */
     public static function bestSeller()
     {
 

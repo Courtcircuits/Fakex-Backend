@@ -12,17 +12,29 @@ class ControllerUtilisateur{
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require __DIR__ . "/../view/$cheminVue"; // Charge la vue
     }
-    
+
+    /**
+     * Affiche la page de connexion d'un créateur
+     * @return void
+     */
     public static function connexionCreateur(){
         self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
         ,"cheminVueBody"=>"Utilisateur/connexionCreateur.php"]);
     }
 
+    /**
+     * Affiche la page de connexion d'un utilisateur
+     * @return void
+     */
     public static function connexionUtilisateur(){
         self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
         ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php"]);
     }
 
+    /**
+     * Connecte le créateur et renvoie un message d'erreur si la connexion échoue ou de succès si elle réussit
+     * @return void
+     */
     public static function connectedUtilisateurCreateur(){
         $login = $_GET['login'];
 
@@ -42,6 +54,10 @@ class ControllerUtilisateur{
         }
     }
 
+    /**
+     * Connecte l'utilisateur et renvoie un message d'erreur si la connexion échoue ou de succès si elle réussit
+     * @return void
+     */
     public static function connectedUtilisateurLambda(){
         $login = $_GET['login'];
         $pwd = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
@@ -58,29 +74,55 @@ class ControllerUtilisateur{
         }
     }
 
+    /**
+     * Affiche la page d'inscription d'un créateur
+     * @return void
+     */
     public static function inscriptionCreateur(){
         self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
         ,"cheminVueBody"=>"Utilisateur/inscriptionCreateur.php"]);
     }
 
+    /**
+     * Affiche la page d'inscription d'un utilisateur
+     * @return void
+     */
     public static function inscriptionUtilisateurLambda(){
         self::afficheVue('view.php',["pagetitle"=>"Inscrivez-vous"
         ,"cheminVueBody"=>"Utilisateur/inscriptionUtilisateurLambda.php"]);
     }
 
+    /**
+     * affiche le panier de l'utilisateur
+     * @return void
+     */
     public static function affichagePanier(){
         self::afficheVue('view.php', ["pagetitle"=>"Panier",
             "cheminVueBody"=>"Utilisateur/panierUtilisateur.php"]);
     }
 
+    /**
+     * Affiche la page de paiement du panier
+     * @return void
+     */
     public static function paiement(){
         self::afficheVue("view.php", ["pagetitle"=>"Paiement",
             "cheminVueBody"=>"Utilisateur/paiementUtilisateur.php"]);
     }
+
+    /**
+     * Affiche le compte de l'utilisateur et de toutes ses paires
+     * @return void
+     */
     public static function viewUtilisateur(){
         self::afficheVue('view.php',["pagetitle"=>"Votre Compte","cheminVueBody"=>"Utilisateur/viewUtilisateur.php"]);
 
     }
+
+    /**
+     * Crée un créateur et renvoie un message d'erreur si la création échoue ou de succès si elle réussit
+     * @return void
+     */
     public static function createdCreateur(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
 
@@ -94,6 +136,10 @@ class ControllerUtilisateur{
         }
     }
 
+    /**
+     * Crée un utilisateur et renvoie un message d'erreur si la création échoue ou de succès si elle réussit
+     * @return void
+     */
     public static function createdUtilisateurLambda(){
         $hash = hash("sha256",SALT_SUFFIX . $_GET['password'] . SALT_PREFIX);
         if((new UtilisateurRepository)->getUser($_GET['login'])!=null){
@@ -107,6 +153,10 @@ class ControllerUtilisateur{
         
     }
 
+    /**
+     * valide le mail
+     * @return void
+     */
     public static function validerEmail(){
         
         $result = VerificationEmail::traiterEmailValidation();
@@ -121,6 +171,10 @@ class ControllerUtilisateur{
         }
     }
 
+    /**
+     * déconnecte l'utilisateur et détruit la session
+     * @return void
+     */
     public static function deconnexion(){
         session_start();
         session_destroy();
@@ -128,8 +182,5 @@ class ControllerUtilisateur{
         ControllerModele::readAll();
     }
 
-    public static function getPanier(){
-        
-    }
 }
 ?>

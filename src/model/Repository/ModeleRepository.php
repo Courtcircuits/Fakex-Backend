@@ -149,6 +149,11 @@ class ModeleRepository
         $pdoStatement->execute($values);
     }
 
+    /**
+     * récupère la paire la plus vendue du site et trois autres paires du même créateur
+     * @param int $rank
+     * @return array
+     */
     public function getBestSeller(int $rank): array{
 
         $sql = 'SELECT * FROM Modele m JOIN LigneCommande l ON l.idModele=m.idModele GROUP BY m.idModele ORDER BY COUNT(m.idModele) DESC LIMIT :rankTag, 1';
@@ -185,10 +190,8 @@ class ModeleRepository
     }
 
     /**
-     * Cette méthode cherche toutes les chaussures qui ont un même pattern
-     * Autrement dit, on cherche toutes les mêmes chaussures dans la BD?
+     * Cette méthode cherche toutes les chaussures qui correspondent à la recherche de l'utilisateur en fonction du nom
      *
-     * (A spécifier ) 🤞
      * @param $pattern
      * @return array
      */
