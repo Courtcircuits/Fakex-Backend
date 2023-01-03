@@ -63,7 +63,7 @@
             </a></li>
         <li><a href="frontController.php?action=viewUtilisateur&controller=utilisateur">
                 <?php
-                require __DIR__."/../../web/img/heart.svg";
+                require __DIR__."/../../web/img/user.svg";
                 ?>
             </a></li>
     </div>

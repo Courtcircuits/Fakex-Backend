@@ -119,10 +119,11 @@ class ControllerModele
 
     public static function addProduitPanier()
     {
-        $modeles = (new ModeleRepository())->selectAll();
         if (isset($_SESSION['login'])) {
             $idModele = $_GET['idmodele'];
             (new UtilisateurRepository())->ajoutProd($idModele);
+            $modeles = (new ModeleRepository())->selectAll();
+
             self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
                 , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit ajouté au panier avec succès !"]);
         }else{
@@ -138,6 +139,8 @@ class ControllerModele
                 $panier[] = $idModele;
                 setcookie('panier', serialize($panier), time() + 3600);
             }
+            $modeles = (new ModeleRepository())->selectAll();
+
             self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
                 , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit ajouté au panier avec succès !"]);
         }
@@ -145,19 +148,22 @@ class ControllerModele
 
     public static function suprProduitPanier()
     {
-        $modeles = (new ModeleRepository())->selectAll();
-
         if(isset($_SESSION['login'])) {
             $idModele = $_GET['idmodele'];
             (new UtilisateurRepository())->suprProd($idModele);
+            $modeles = (new ModeleRepository())->selectAll();
+
             self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
                 , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit supprimé du panier avec succès !"]);
         }else{
             $idModele = $_GET['idmodele'];
             $panier = unserialize($_COOKIE['panier']);
+            
             $key = array_search($idModele, $panier);
             unset($panier[$key]);
             setcookie('panier', serialize($panier), time() + 3600);
+            $modeles = (new ModeleRepository())->selectAll();
+
             self::afficheVue('view.php', ['modeles' => $modeles, "pagetitle" => "Accueil"
                 , "cheminVueBody" => "Accueil/readAll.php", "message" => "Produit supprimé du panier avec succès !"]);
         }

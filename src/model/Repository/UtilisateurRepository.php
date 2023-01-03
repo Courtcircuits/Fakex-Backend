@@ -70,6 +70,32 @@ class UtilisateurRepository
         }
     }
 
+    public function getProductCreated($login): array{
+        $pdoStatement = DatabaseConnection::getPdo();
+        $requete = "SELECT * FROM Modele where creator = :loginTag";
+        $pdoStatement = $pdoStatement->prepare($requete);
+        $values = array(
+            'loginTag' => $login
+        );
+        $pdoStatement->execute($values);
+        $result = $pdoStatement->fetchAll();
+        $products = array();
+        foreach ($result as $product){
+            $products[] = new Modele(
+                $product['idModele'],
+                $product['nom'],
+                $product['prix'],
+                $product['creator'],
+                $product['imageUrl'],
+                $product['minSize'],
+                $product['maxSize'],
+                $product['genre'],
+                $product['quantity']
+        );
+        }
+        return $products;
+    }
+
     public function checkGlobal($login, $pwd): bool
     {
         $pdoStatement = DatabaseConnection::getPdo();
