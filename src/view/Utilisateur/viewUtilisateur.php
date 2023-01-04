@@ -1,9 +1,7 @@
 <?php
 use App\Fakex\model\Repository\UtilisateurRepository;
-        if (!isset($_SESSION['login'])) {
-            header("Location: frontController.php?action=connexionUtilisateurLambda&controller=utilisateur");
-        }
-        $utilisateur = (new UtilisateurRepository())->getUser($_SESSION['login']);
+
+        $utilisateur = $user;
         $products = (new UtilisateurRepository())->getProductCreated($utilisateur->getLogin());
         ?>
 <div id="pay">
@@ -12,13 +10,9 @@ use App\Fakex\model\Repository\UtilisateurRepository;
     </h2>
 
     <?php
-    if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
         // L'utilisateur est connecté
-        echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li><p> <h2>Login:</h2>  <a>' . $_SESSION['login'] . '</a</p>';
-    } else {
-        // L'utilisateur n'est pas connecté
-        echo '<li><a href="frontController.php?action=connexionUtilisateur&controller=utilisateur">Log in</a></li>';
-    }
+        echo '<li><a href="frontController.php?action=deconnexion&controller=utilisateur">Log out</a></li><h2>Login:</h2>';
+    
     ?>
 
     <table>

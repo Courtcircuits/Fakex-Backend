@@ -115,7 +115,13 @@ class ControllerUtilisateur{
      * @return void
      */
     public static function viewUtilisateur(){
-        self::afficheVue('view.php',["pagetitle"=>"Votre Compte","cheminVueBody"=>"Utilisateur/viewUtilisateur.php"]);
+        if(!isset($_GET['login'])){
+            self::afficheVue('view.php',["pagetitle"=>"Connectez-vous"
+            ,"cheminVueBody"=>"Utilisateur/connexionUtilisateur.php","message"=>"Vous devez être connecté pour accéder à votre compte"]);
+        }
+        else{
+            self::afficheVue('view.php',["pagetitle"=>"Votre Compte","cheminVueBody"=>"Utilisateur/viewUtilisateur.php","user"=>(new UtilisateurRepository())->getUser($_GET['login'])]);
+        }
 
     }
 

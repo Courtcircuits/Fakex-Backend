@@ -52,7 +52,7 @@
                 require __DIR__."/../../web/img/magnify.svg";
                 ?>
             </a></li>
-        <li><a href="frontController.php?action=viewUtilisateur&controller=utilisateur">
+        <li><a href="frontController.php?action=viewUtilisateur&controller=utilisateur<?php if(isset($_SESSION["login"])){echo "&login=". $_SESSION["login"];}?>">
                 <?php
                 require __DIR__."/../../web/img/user.svg";
                 ?>
